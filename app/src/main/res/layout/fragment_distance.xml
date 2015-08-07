@@ -1,0 +1,123 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.captor.points.gtnaozuka.fragment.DistanceFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meter_1"
+            android:id="@+id/btnMeter1"
+            android:layout_gravity="center_horizontal"
+            android:enabled="true"
+            android:onClick="startMeter1"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rectangle"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meters_2"
+            android:id="@+id/btnMeters2"
+            android:layout_gravity="center_horizontal"
+            android:enabled="true"
+            android:onClick="startMeters2"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rectangle"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meters_5"
+            android:id="@+id/btnMeters5"
+            android:layout_gravity="center_horizontal"
+            android:enabled="true"
+            android:onClick="startMeters5"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rectangle"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meters_10"
+            android:id="@+id/btnMeters10"
+            android:layout_gravity="center_horizontal"
+            android:enabled="true"
+            android:onClick="startMeters10"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rectangle"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meters_15"
+            android:id="@+id/btnMeters15"
+            android:layout_gravity="center_horizontal"
+            android:enabled="true"
+            android:onClick="startMeters15"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rectangle"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meters_20"
+            android:id="@+id/btnMeters20"
+            android:layout_gravity="center_horizontal"
+            android:enabled="true"
+            android:onClick="startMeters20"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rectangle"
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/other_distance"
+            android:id="@+id/btnOtherDistance"
+            android:layout_gravity="center_horizontal"
+            android:enabled="true"
+            android:onClick="startOtherDistance"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_rectangle"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

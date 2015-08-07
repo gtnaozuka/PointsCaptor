@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Points Captor</string>
+
+    <string name="hello_world">Olá Mundo!</string>
+    <string name="hello_blank_fragment">Olá, fragmento em branco</string>
+    <string name="action_settings">Configurações</string>
+    <string name="title_activity_capture">CaptureActivity</string>
+    <string name="title_activity_captured_points">CapturedPointsActivity</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
+
+    <string name="second_1">1 SEGUNDO</string>
+    <string name="seconds_2">2 SEGUNDOS</string>
+    <string name="seconds_5">5 SEGUNDOS</string>
+    <string name="seconds_10">10 SEGUNDOS</string>
+    <string name="seconds_15">15 SEGUNDOS</string>
+    <string name="seconds_20">20 SEGUNDOS</string>
+    <string name="meter_1">1 METRO</string>
+    <string name="meters_2">2 METROS</string>
+    <string name="meters_5">5 METROS</string>
+    <string name="meters_10">10 METROS</string>
+    <string name="meters_15">15 METROS</string>
+    <string name="meters_20">20 METROS</string>
+    <string name="other_distance">OUTRA DISTÂNCIA</string>
+    <string name="other_time">OUTRO TEMPO</string>
+    <string name="by_distance">Por distância</string>
+    <string name="by_time">Por tempo</string>
+    <string name="gps">GPS</string>
+    <string name="captured_points">&#160;pontos capturados</string>
+    <string name="zero">0</string>
+    <string name="play">Iniciar</string>
+    <string name="stop">Parar</string>
+    <string name="location"></string>
+    <string name="maps">Maps</string>
+    <string name="info">Informação</string>
+    <string name="splash_screen">Splash Screen</string>
+    <string name="view_captured_points">Visualizar pontos capturados</string>
+    <string name="view_in_google_maps">Visualizar no Google Maps</string>
+    <string name="store_in_memory">Armazenar na memória do telefone</string>
+    <string name="share_with_someone">Compartilhar com alguém</string>
+    <string name="start_new_capture">Iniciar uma nova captura</string>
+    <string name="choose_action">Escolha uma ação:&#160;</string>
+    <string name="discard_confirmation">Você tem certeza? Todos os dados não salvos serão descartados.</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="info_message">
+        Points Captor é um aplicativo em que você pode coletar pontos a partir de sua
+        geolocalização. Há dois modos diferentes. No modo \'por distância\', capture novos
+        pontos de acordo com uma distância mínima alterada na latitude ou na longitude. No modo \'por
+        tempo\', capture novos pontos através de um tempo estipulado por você. Uma vez coletados
+        os pontos, você pode determinar o seu destino. Além disso, o aplicativo está diretamente
+        ligado ao Google Maps.
+    </string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="take_photo">Tirar uma foto do mapa</string>
+    <string name="share_photo">Compartilhar uma foto do mapa com alguém</string>
+    <string name="change_map_type">Trocar o tipo de mapa</string>
+    <string name="choose_option">Escolha uma opção:&#160;</string>
+    <string name="normal">Normal</string>
+    <string name="hybrid">Híbrido</string>
+    <string name="satellite">Satélite</string>
+    <string name="terrain">Terreno</string>
+    <string name="distance">Distância (metros)</string>
+    <string name="time">Tempo (segundos)</string>
+    <string name="input_distance">Insira uma distância:&#160;</string>
+    <string name="input_time">Insira um tempo:&#160;</string>
+    <string name="latitude_dots">Latitude:&#160;</string>
+    <string name="longitude_dots">Longitude:&#160;</string>
+    <string name="gps_disabled">GPS desabilitado</string>
+    <string name="fill_blank_field">Preencha o campo em branco</string>
+    <string name="pause">Pausar</string>
+    <string name="unauthorized_access">Acesso não autorizado</string>
+    <string name="saved_successfully">&#160;salvo com sucesso</string>
+    <string name="email_subject">Points Captor - Pontos capturados</string>
+    <string name="map_email_subject">Points Captor - Foto do mapa</string>
+    <string name="no_email_client">Não há nenhum email instalado</string>
+    <string name="n">n</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="x">x</string>
+    <string name="y">y</string>
+    <string name="start">Início</string>
+    <string name="finish">Fim</string>
+    <string name="language">Idioma</string>
+    <string name="english">Inglês</string>
+    <string name="portuguese">Português</string>
+    <string name="reboot">Reinicie o aplicativo para aplicar as mudanças</string>
+    <string name="warning">Atenção</string>
+    <string name="not_valid">&#160;não é um valor válido</string>
+    <string name="email_body">O arquivo contendo os pontos capturados está anexo ao email.</string>
+    <string name="map_email_body">A foto do mapa está anexa ao email.</string>
+</resources>
