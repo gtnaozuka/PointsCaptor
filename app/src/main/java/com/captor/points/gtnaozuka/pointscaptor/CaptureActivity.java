@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.GpsStatus;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,9 +22,14 @@ import android.widget.Toast;
 
 import com.captor.points.gtnaozuka.dialog.CapturedPointsDialog;
 import com.captor.points.gtnaozuka.dialog.DiscardConfirmationDialog;
-import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.dialog.StopConfirmationDialog;
+import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.util.Util;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,7 +44,9 @@ import java.util.Locale;
 public class CaptureActivity extends MenuActivity implements LocationListener,
         CapturedPointsDialog.CapturedPointsListener,
         DiscardConfirmationDialog.DiscardConfirmationListener,
-        StopConfirmationDialog.StopConfirmationListener {
+        StopConfirmationDialog.StopConfirmationListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        GpsStatus.Listener {
 
     private Integer type, pointsNum;
     private Double value;
@@ -47,9 +54,14 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
     private boolean isConnecting, needsRequestLocation;
     private ArrayList<Point> dataPoint;
     private ArrayList<com.captor.points.gtnaozuka.entity.Location> dataLocation;
-    private LocationManager locationManager;
+    //private LocationManager locationManager;
     private Location location;
+    private List<Address> addresses;
     private static final int PLAYED = 1, PAUSED = 0, STOPPED = -1;
+
+    private LocationRequest locationRequest;
+    private GoogleApiClient googleApiClient;
+    private static final long INTERVAL = 10000, FASTEST_INTERVAL = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +86,26 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
         dataPoint = new ArrayList<>();
         dataLocation = new ArrayList<>();
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        /*locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            setOnProviderEnabled();
+        }*/
+
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(INTERVAL);
+        locationRequest.setFastestInterval(FASTEST_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        googleApiClient.connect();
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.addGpsStatusListener(this);
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             setOnProviderEnabled();
         }
@@ -85,7 +115,9 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
     protected void onResume() {
         super.onResume();
         if (needsRequestLocation) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    googleApiClient, locationRequest, this);
             needsRequestLocation = false;
         }
     }
@@ -107,24 +139,51 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
             isConnecting = false;
         }
 
-        ProgressBar pBar = (ProgressBar) findViewById(R.id.progressBar);
-        pBar.setVisibility(View.GONE);
-        try {
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(this.location.getLatitude(),
-                    this.location.getLongitude(), 1);
-
-            TextView txtView = (TextView) findViewById(R.id.txtLocation);
-            txtView.setText(getResources().getString(R.string.latitude_dots) + this.location.getLatitude() + "\n" +
-                    getResources().getString(R.string.longitude_dots) + this.location.getLongitude() + "\n" +
-                    addresses.get(0).getAddressLine(0) + ", " +  addresses.get(0).getAddressLine(1) + ", " +
-                    addresses.get(0).getAddressLine(2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        updateLocationUI();
+        updateAddressUI();
     }
 
-    @Override
+    private void updateLocationUI() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ProgressBar pBar = (ProgressBar) findViewById(R.id.progressBar);
+                pBar.setVisibility(View.GONE);
+
+                TextView txtView = (TextView) findViewById(R.id.txtLocation);
+                txtView.setText(getResources().getString(R.string.latitude_dots) + location.getLatitude() + "\n" +
+                        getResources().getString(R.string.longitude_dots) + location.getLongitude() + "\n");
+            }
+        });
+    }
+
+    private void updateAddressUI() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    addresses = geocoder.getFromLocation(location.getLatitude(),
+                            location.getLongitude(), 1);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView txtView = (TextView) findViewById(R.id.txtLocation);
+                            txtView.setText(txtView.getText() +
+                                    addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getAddressLine(1) + ", " +
+                                    addresses.get(0).getAddressLine(2));
+                        }
+                    });
+                } catch (IOException e) {
+                    //e.printStackTrace();
+                    Log.d("ioexception", "thrown");
+                }
+            }
+        }).start();
+    }
+
+    /*@Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         Log.d("Status", "changed");
     }
@@ -157,7 +216,7 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
 
         Toast toast = Toast.makeText(getApplicationContext(), R.string.gps_disabled, Toast.LENGTH_SHORT);
         toast.show();
-    }
+    }*/
 
     public void playRecord(View view) {
         ImageButton imgButton = (ImageButton) findViewById(R.id.btnPlay);
@@ -200,7 +259,9 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
 
     public void stopRecord(View view) {
         status = STOPPED;
-        locationManager.removeUpdates(this);
+        //locationManager.removeUpdates(this);
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                googleApiClient, this);
 
         ImageButton imgButton = (ImageButton) findViewById(R.id.btnPlay);
         imgButton.setImageResource(R.drawable.ic_action_play);
@@ -357,7 +418,9 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
 
     @Override
     public void onDCPositiveClick(DialogFragment dialog) {
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                googleApiClient, locationRequest, this);
         dataPoint = new ArrayList<>();
         dataLocation = new ArrayList<>();
         pointsNum = 0;
@@ -375,14 +438,18 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
 
     @Override
     public void onSCPositiveClick(DialogFragment dialog) {
-        locationManager.removeUpdates(this);
+        //locationManager.removeUpdates(this);
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                googleApiClient, this);
         finish();
     }
 
     @Override
     public void onBackPressed() {
         if (pointsNum.equals(0)) {
-            locationManager.removeUpdates(this);
+            //locationManager.removeUpdates(this);
+            LocationServices.FusedLocationApi.removeLocationUpdates(
+                    googleApiClient, this);
             finish();
         } else {
             if (status == PLAYED)
@@ -395,7 +462,9 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
 
     public void startMapsActivity(View view) {
         needsRequestLocation = true;
-        locationManager.removeUpdates(this);
+        //locationManager.removeUpdates(this);
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                googleApiClient, this);
         startMapsActivity();
     }
 
@@ -420,11 +489,66 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
     }
 
     private void setOnProviderEnabled() {
-        ImageButton imgButton = (ImageButton) findViewById(R.id.gpsButton);
-        imgButton.setVisibility(View.GONE);
-        ProgressBar pBar = (ProgressBar) findViewById(R.id.progressBar);
-        pBar.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ImageButton imgButton = (ImageButton) findViewById(R.id.gpsButton);
+                imgButton.setVisibility(View.GONE);
+                ProgressBar pBar = (ProgressBar) findViewById(R.id.progressBar);
+                pBar.setVisibility(View.VISIBLE);
+            }
+        });
 
         isConnecting = true;
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                googleApiClient, locationRequest, this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.d("connection", "suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.d("connection", "failed");
+    }
+
+    @Override
+    public void onGpsStatusChanged(int event) {
+        if (event == GpsStatus.GPS_EVENT_STARTED) {
+            setOnProviderEnabled();
+        } else if (event == GpsStatus.GPS_EVENT_STOPPED) {
+            ImageButton imgButton;
+            if (status == PLAYED)
+                pauseRecord(false);
+            else {
+                imgButton = (ImageButton) findViewById(R.id.mapsButton);
+                imgButton.setEnabled(false);
+            }
+            imgButton = (ImageButton) findViewById(R.id.btnPlay);
+            imgButton.setEnabled(false);
+            imgButton = (ImageButton) findViewById(R.id.btnStop);
+            imgButton.setEnabled(false);
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView txtView = (TextView) findViewById(R.id.txtLocation);
+                    txtView.setText(R.string.location);
+                    ProgressBar pBar = (ProgressBar) findViewById(R.id.progressBar);
+                    pBar.setVisibility(View.GONE);
+                    ImageButton imgButton = (ImageButton) findViewById(R.id.gpsButton);
+                    imgButton.setVisibility(View.VISIBLE);
+                }
+            });
+
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.gps_disabled, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }
