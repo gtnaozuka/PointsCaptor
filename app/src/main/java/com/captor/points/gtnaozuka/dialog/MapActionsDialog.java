@@ -12,9 +12,11 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 public class MapActionsDialog extends DialogFragment {
 
     public interface MapActionsListener {
-        public void changeMapType(DialogFragment dialog);
-        public void takePhoto(DialogFragment dialog);
-        public void sharePhoto(DialogFragment dialog);
+        void changeMapType(DialogFragment dialog);
+
+        void takePhoto(DialogFragment dialog);
+
+        void sharePhoto(DialogFragment dialog);
     }
 
     private MapActionsListener maListener;

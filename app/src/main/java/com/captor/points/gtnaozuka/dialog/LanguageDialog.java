@@ -12,7 +12,7 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 public class LanguageDialog extends DialogFragment {
 
     public interface LanguageListener {
-        public void setLanguage(DialogFragment dialog, String language);
+        void setLanguage(DialogFragment dialog, String language);
     }
 
     private LanguageListener lListener;
@@ -40,10 +40,10 @@ public class LanguageDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        lListener.setLanguage(LanguageDialog.this, "en_US");
+                        lListener.setLanguage(LanguageDialog.this, "en");
                         break;
                     case 1:
-                        lListener.setLanguage(LanguageDialog.this, "pt_BR");
+                        lListener.setLanguage(LanguageDialog.this, "pt");
                 }
             }
         });

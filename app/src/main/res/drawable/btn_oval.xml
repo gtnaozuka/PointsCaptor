@@ -2,17 +2,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false">
         <shape android:shape="oval">
-            <solid android:color="@color/disabled_button"/>
+            <solid android:color="@color/disabled_button" />
         </shape>
     </item>
-   <item android:state_pressed="true">
+    <item android:state_pressed="true">
         <shape android:shape="oval">
-            <solid android:color="@color/pressed_button"/>
+            <solid android:color="@color/pressed_button" />
         </shape>
     </item>
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/normal_button"/>
+            <solid android:color="@color/normal_button" />
         </shape>
     </item>
 </selector>

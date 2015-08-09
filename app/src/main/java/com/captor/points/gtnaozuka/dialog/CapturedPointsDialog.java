@@ -12,11 +12,15 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 public class CapturedPointsDialog extends DialogFragment {
 
     public interface CapturedPointsListener {
-        public void viewCapturedPoints(DialogFragment dialog);
-        public void viewInGoogleMaps(DialogFragment dialog);
-        public void storeInMemory(DialogFragment dialog);
-        public void shareWithSomeone(DialogFragment dialog);
-        public void startNewCapture(DialogFragment dialog);
+        void viewCapturedPoints(DialogFragment dialog);
+
+        void viewInGoogleMaps(DialogFragment dialog);
+
+        void storeInMemory(DialogFragment dialog);
+
+        void shareWithSomeone(DialogFragment dialog);
+
+        void startNewCapture(DialogFragment dialog);
     }
 
     private CapturedPointsListener cpListener;

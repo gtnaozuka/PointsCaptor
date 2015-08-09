@@ -180,7 +180,6 @@ public class MapsActivity extends FragmentActivity implements MapActionsDialog.M
                 File.separator + "Android" + File.separator + "data" +
                 File.separator + getPackageName() + File.separator + lastFolder;
         String filename = "GM_" + df.format(d) + ".png";
-        Bitmap bitmap = snapshot;
 
         File f = null;
         try {
@@ -192,7 +191,7 @@ public class MapsActivity extends FragmentActivity implements MapActionsDialog.M
                 f.createNewFile();
 
             FileOutputStream fos = new FileOutputStream(f);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            snapshot.compress(Bitmap.CompressFormat.PNG, 90, fos);
             fos.flush();
             fos.close();
         } catch (IOException e) {

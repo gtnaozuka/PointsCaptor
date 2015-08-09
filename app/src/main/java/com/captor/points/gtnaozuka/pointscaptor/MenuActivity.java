@@ -52,7 +52,7 @@ public class MenuActivity extends FragmentActivity implements LanguageDialog.Lan
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("Language", language);
-        editor.commit();
+        editor.apply();
 
         Toast toast = Toast.makeText(getApplicationContext(), R.string.reboot, Toast.LENGTH_SHORT);
         toast.show();

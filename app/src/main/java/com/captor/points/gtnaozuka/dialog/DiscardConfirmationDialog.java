@@ -12,8 +12,9 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 public class DiscardConfirmationDialog extends DialogFragment {
 
     public interface DiscardConfirmationListener {
-        public void onDCPositiveClick(DialogFragment dialog);
-        public void onDCNegativeClick(DialogFragment dialog);
+        void onDCPositiveClick(DialogFragment dialog);
+
+        void onDCNegativeClick(DialogFragment dialog);
     }
 
     private DiscardConfirmationListener dcListener;

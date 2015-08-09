@@ -13,7 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 public class MapTypeDialog extends DialogFragment {
 
     public interface MapTypeListener {
-        public void setMapType(DialogFragment dialog, int type);
+        void setMapType(DialogFragment dialog, int type);
     }
 
     private MapTypeListener mtListener;

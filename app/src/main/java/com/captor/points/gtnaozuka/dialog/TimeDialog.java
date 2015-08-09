@@ -16,7 +16,7 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 public class TimeDialog extends DialogFragment {
 
     public interface TimeListener {
-        public void onTPositiveClick(DialogFragment dialog, Double value);
+        void onTPositiveClick(DialogFragment dialog, Double value);
     }
 
     private TimeListener tListener;
@@ -67,7 +67,8 @@ public class TimeDialog extends DialogFragment {
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {}
+            public void onClick(DialogInterface dialog, int id) {
+            }
         });
         return builder.create();
     }

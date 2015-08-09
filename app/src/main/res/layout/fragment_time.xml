@@ -5,21 +5,21 @@
     tools:context="com.captor.points.gtnaozuka.fragment.TimeFragment">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnSecond1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/second_1"
-            android:id="@+id/btnSecond1"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_rectangle"
             android:enabled="true"
             android:onClick="startSecond1"
+            android:text="@string/second_1"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_rectangle"
             android:textSize="14sp" />
 
         <Space
@@ -27,15 +27,15 @@
             android:layout_height="5dp" />
 
         <Button
+            android:id="@+id/btnSeconds2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/seconds_2"
-            android:id="@+id/btnSeconds2"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_rectangle"
             android:enabled="true"
             android:onClick="startSeconds2"
+            android:text="@string/seconds_2"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_rectangle"
             android:textSize="14sp" />
 
         <Space
@@ -43,15 +43,15 @@
             android:layout_height="5dp" />
 
         <Button
+            android:id="@+id/btnSeconds5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/seconds_5"
-            android:id="@+id/btnSeconds5"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_rectangle"
             android:enabled="true"
             android:onClick="startSeconds5"
+            android:text="@string/seconds_5"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_rectangle"
             android:textSize="14sp" />
 
         <Space
@@ -59,15 +59,15 @@
             android:layout_height="5dp" />
 
         <Button
+            android:id="@+id/btnSeconds10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/seconds_10"
-            android:id="@+id/btnSeconds10"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_rectangle"
             android:enabled="true"
             android:onClick="startSeconds10"
+            android:text="@string/seconds_10"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_rectangle"
             android:textSize="14sp" />
 
         <Space
@@ -75,15 +75,15 @@
             android:layout_height="5dp" />
 
         <Button
+            android:id="@+id/btnSeconds15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/seconds_15"
-            android:id="@+id/btnSeconds15"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_rectangle"
             android:enabled="true"
             android:onClick="startSeconds15"
+            android:text="@string/seconds_15"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_rectangle"
             android:textSize="14sp" />
 
         <Space
@@ -91,15 +91,15 @@
             android:layout_height="5dp" />
 
         <Button
+            android:id="@+id/btnSeconds20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/seconds_20"
-            android:id="@+id/btnSeconds20"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_rectangle"
             android:enabled="true"
             android:onClick="startSeconds20"
+            android:text="@string/seconds_20"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_rectangle"
             android:textSize="14sp" />
 
         <Space
@@ -107,15 +107,15 @@
             android:layout_height="5dp" />
 
         <Button
+            android:id="@+id/btnOtherTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/other_time"
-            android:id="@+id/btnOtherTime"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_rectangle"
             android:enabled="true"
             android:onClick="startOtherTime"
+            android:text="@string/other_time"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_rectangle"
             android:textSize="14sp" />
 
     </LinearLayout>

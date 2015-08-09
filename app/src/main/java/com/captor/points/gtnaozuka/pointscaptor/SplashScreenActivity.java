@@ -22,7 +22,7 @@ public class SplashScreenActivity extends Activity {
         setContentView(R.layout.activity_splash_screen);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Util.loadLanguage(this, sharedPref.getString("Language", "en_US"));
+        Util.loadLanguage(this, sharedPref.getString("Language", "en"));
         /*SharedPreferences.Editor edit = sharedPref.edit();
         edit.clear();
         edit.commit();*/

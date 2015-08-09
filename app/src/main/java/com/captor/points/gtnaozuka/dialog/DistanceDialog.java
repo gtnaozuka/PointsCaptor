@@ -7,7 +7,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.ContextThemeWrapper;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -17,7 +16,7 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 public class DistanceDialog extends DialogFragment {
 
     public interface DistanceListener {
-        public void onDPositiveClick(DialogFragment dialog, Double value);
+        void onDPositiveClick(DialogFragment dialog, Double value);
     }
 
     private DistanceListener dListener;
@@ -68,7 +67,8 @@ public class DistanceDialog extends DialogFragment {
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {}
+            public void onClick(DialogInterface dialog, int id) {
+            }
         });
         return builder.create();
     }

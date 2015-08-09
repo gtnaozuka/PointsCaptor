@@ -2,7 +2,9 @@ package com.captor.points.gtnaozuka.util;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 
 import com.captor.points.gtnaozuka.entity.Location;
 import com.captor.points.gtnaozuka.entity.Point;
@@ -95,10 +97,17 @@ public class Util {
     }
 
     public static void loadLanguage(Context context, String language) {
-        Locale locale = new Locale(language);
+        /*Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
-        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());*/
+
+        Locale locale = new Locale(language);
+        Resources res = context.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration config = res.getConfiguration();
+        config.locale = locale;
+        res.updateConfiguration(config, dm);
     }
 }

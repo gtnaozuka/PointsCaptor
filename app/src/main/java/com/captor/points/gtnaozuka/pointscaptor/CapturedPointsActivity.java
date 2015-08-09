@@ -53,7 +53,7 @@ public class CapturedPointsActivity extends MenuActivity {
             l = dataLocation.get(i);
 
             tr = createTableRow();
-            tr.addView(createTextView(String.valueOf(i+1), false, false));
+            tr.addView(createTextView(String.valueOf(i + 1), false, false));
             tr.addView(createTextView(String.valueOf(l.getLatitude()), true, false));
             tr.addView(createTextView(String.valueOf(l.getLongitude()), true, false));
             tr.addView(createTextView(String.valueOf(p.getX()), true, false));

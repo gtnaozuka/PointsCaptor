@@ -12,7 +12,7 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 public class StopConfirmationDialog extends DialogFragment {
 
     public interface StopConfirmationListener {
-        public void onSCPositiveClick(DialogFragment dialog);
+        void onSCPositiveClick(DialogFragment dialog);
     }
 
     private StopConfirmationListener scListener;
@@ -39,7 +39,8 @@ public class StopConfirmationDialog extends DialogFragment {
             }
         });
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {}
+            public void onClick(DialogInterface dialog, int id) {
+            }
         });
         return builder.create();
     }
