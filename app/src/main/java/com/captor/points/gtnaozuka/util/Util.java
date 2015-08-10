@@ -12,6 +12,7 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 
 public class Util {
@@ -103,5 +104,15 @@ public class Util {
         Configuration config = res.getConfiguration();
         config.locale = locale;
         res.updateConfiguration(config, dm);
+    }
+
+    public static ArrayList<Location> removeRepeatedLocations(ArrayList<Location> data) {
+        LinkedHashSet<Location> set = new LinkedHashSet<>(data);
+        return new ArrayList<>(set);
+    }
+
+    public static ArrayList<Point> removeRepeatedPoints(ArrayList<Point> data) {
+        LinkedHashSet<Point> set = new LinkedHashSet<>(data);
+        return new ArrayList<>(set);
     }
 }

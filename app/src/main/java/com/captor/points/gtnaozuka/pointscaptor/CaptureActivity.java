@@ -381,6 +381,15 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
         dialog2.show(getFragmentManager(), "DiscardConfirmationDialog");
     }
 
+    @Override
+    public void removeRepeatedData(DialogFragment dialog) {
+        dataLocation = Util.removeRepeatedLocations(dataLocation);
+        dataPoint = Util.removeRepeatedPoints(dataPoint);
+
+        Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.removed_successfully), Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
     private File storeFile(String lastFolder) {
         if (!Util.isExternalStorageWritable()) {
             Toast toast = Toast.makeText(getApplicationContext(), R.string.unauthorized_access,

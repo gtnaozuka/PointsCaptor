@@ -53,4 +53,25 @@ public class Point implements Parcelable {
             return new Point[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Point point = (Point) o;
+        return Double.compare(point.getX(), getX()) == 0 && Double.compare(point.getY(), getY()) == 0;
+
+    }
+
+    @Override
+    public int hashCode() {
+        long temp = Double.doubleToLongBits(getX());
+        int result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getY());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

@@ -91,4 +91,7 @@
     <string name="not_valid">&#160;is not a valid value</string>
     <string name="email_body">The file containing the captured points is attached to the email.</string>
     <string name="map_email_body">The photo of the map is attached to the email.</string>
+
+    <string name="remove_repeated_points">Remove repeated points</string>
+    <string name="removed_successfully">Points removed successfully</string>
 </resources>

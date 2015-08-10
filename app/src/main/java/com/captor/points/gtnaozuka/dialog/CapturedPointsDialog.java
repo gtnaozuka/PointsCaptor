@@ -16,6 +16,8 @@ public class CapturedPointsDialog extends DialogFragment {
 
         void viewInGoogleMaps(DialogFragment dialog);
 
+        void removeRepeatedData(DialogFragment dialog);
+
         void storeInMemory(DialogFragment dialog);
 
         void shareWithSomeone(DialogFragment dialog);
@@ -36,7 +38,7 @@ public class CapturedPointsDialog extends DialogFragment {
     }
 
     private String[] actions;
-    private static final int MAX_ACTIONS = 5;
+    private static final int MAX_ACTIONS = 6;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -54,12 +56,15 @@ public class CapturedPointsDialog extends DialogFragment {
                         cpListener.viewInGoogleMaps(CapturedPointsDialog.this);
                         break;
                     case 2:
-                        cpListener.storeInMemory(CapturedPointsDialog.this);
+                        cpListener.removeRepeatedData(CapturedPointsDialog.this);
                         break;
                     case 3:
-                        cpListener.shareWithSomeone(CapturedPointsDialog.this);
+                        cpListener.storeInMemory(CapturedPointsDialog.this);
                         break;
                     case 4:
+                        cpListener.shareWithSomeone(CapturedPointsDialog.this);
+                        break;
+                    case 5:
                         cpListener.startNewCapture(CapturedPointsDialog.this);
                 }
             }
@@ -71,8 +76,9 @@ public class CapturedPointsDialog extends DialogFragment {
         actions = new String[MAX_ACTIONS];
         actions[0] = getResources().getString(R.string.view_captured_points);
         actions[1] = getResources().getString(R.string.view_in_google_maps);
-        actions[2] = getResources().getString(R.string.store_in_memory);
-        actions[3] = getResources().getString(R.string.share_with_someone);
-        actions[4] = getResources().getString(R.string.start_new_capture);
+        actions[2] = getResources().getString(R.string.remove_repeated_points);
+        actions[3] = getResources().getString(R.string.store_in_memory);
+        actions[4] = getResources().getString(R.string.share_with_someone);
+        actions[5] = getResources().getString(R.string.start_new_capture);
     }
 }

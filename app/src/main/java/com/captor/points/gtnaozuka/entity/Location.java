@@ -53,4 +53,25 @@ public class Location implements Parcelable {
             return new Location[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Location location = (Location) o;
+        return Double.compare(location.getLatitude(), getLatitude()) == 0 && Double.compare(location.getLongitude(), getLongitude()) == 0;
+
+    }
+
+    @Override
+    public int hashCode() {
+        long temp = Double.doubleToLongBits(getLatitude());
+        int result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getLongitude());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
