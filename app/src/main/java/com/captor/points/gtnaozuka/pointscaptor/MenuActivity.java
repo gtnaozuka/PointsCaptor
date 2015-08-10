@@ -3,7 +3,8 @@ package com.captor.points.gtnaozuka.pointscaptor;
 import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
+//import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,7 +13,7 @@ import android.widget.Toast;
 import com.captor.points.gtnaozuka.dialog.InfoDialog;
 import com.captor.points.gtnaozuka.dialog.LanguageDialog;
 
-public class MenuActivity extends FragmentActivity implements LanguageDialog.LanguageListener {
+public class MenuActivity extends AppCompatActivity implements LanguageDialog.LanguageListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

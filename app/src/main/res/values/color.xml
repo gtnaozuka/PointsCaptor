@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="normal_button">#004400</color>
+    <color name="normal_button">#2E7D32</color>
     <color name="disabled_button">#949494</color>
-    <color name="pressed_button">#008800</color>
+    <color name="pressed_button">#66BB6A</color>
+
+    <color name="color_primary_dark">#1B5E20</color>
+    <color name="color_primary">#81C784</color>
+    <color name="tabs_color">#C8E6C9</color>
+    <color name="color_accent">#FF9800</color>
+    <color name="text_color">#000000</color>
 
 </resources>

@@ -1,16 +1,22 @@
-package com.captor.points.gtnaozuka.util;
+package com.captor.points.gtnaozuka.tabs;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.captor.points.gtnaozuka.fragment.DistanceFragment;
 import com.captor.points.gtnaozuka.fragment.TimeFragment;
 
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    public TabsPagerAdapter(FragmentManager fm) {
+    CharSequence titles[];
+    int numbOfTabs;
+
+    public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int numbOfTabs) {
         super(fm);
+
+        this.titles = titles;
+        this.numbOfTabs = numbOfTabs;
     }
 
     @Override
@@ -25,7 +31,12 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
+    public CharSequence getPageTitle(int position) {
+        return titles[position];
+    }
+
+    @Override
     public int getCount() {
-        return 2;
+        return numbOfTabs;
     }
 }

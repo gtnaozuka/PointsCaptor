@@ -6,8 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.captor.points.gtnaozuka.dialog.MapActionsDialog;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class MapsActivity extends FragmentActivity implements MapActionsDialog.MapActionsListener,
+public class MapsActivity extends AppCompatActivity implements MapActionsDialog.MapActionsListener,
         MapTypeDialog.MapTypeListener {
 
     private GoogleMap map;

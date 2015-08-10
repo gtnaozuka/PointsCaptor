@@ -36,6 +36,8 @@ public class TimeDialog extends DialogFragment {
         final EditText editText = new EditText(getActivity().getApplicationContext());
         editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         editText.setHint(R.string.time);
+        editText.setTextColor(getResources().getColor(R.color.text_color));
+        editText.setHintTextColor(getResources().getColor(R.color.secondary_text_default_material_light));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

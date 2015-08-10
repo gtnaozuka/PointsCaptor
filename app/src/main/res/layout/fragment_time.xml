@@ -4,120 +4,143 @@
     android:layout_height="match_parent"
     tools:context="com.captor.points.gtnaozuka.fragment.TimeFragment">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+
+        <Space
+            android:id="@+id/vSpace1"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/btnSecond1"
+            android:layout_toStartOf="@+id/btnSecond1" />
+
+        <Space
+            android:id="@+id/vSpace2"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/btnSecond1"
+            android:layout_toRightOf="@+id/btnSecond1" />
+
+        <Space
+            android:id="@+id/hSpace"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
 
         <Button
             android:id="@+id/btnSecond1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_above="@+id/btnSeconds2"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startSecond1"
             android:text="@string/second_1"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnSeconds2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_above="@+id/hSpace"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toEndOf="@+id/vSpace2"
+            android:layout_toRightOf="@+id/vSpace2"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startSeconds2"
             android:text="@string/seconds_2"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnSeconds5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_below="@+id/hSpace"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toEndOf="@+id/vSpace2"
+            android:layout_toRightOf="@+id/vSpace2"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startSeconds5"
             android:text="@string/seconds_5"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnSeconds10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_below="@+id/btnSeconds5"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toLeftOf="@+id/vSpace2"
+            android:layout_toStartOf="@+id/vSpace2"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startSeconds10"
             android:text="@string/seconds_10"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnSeconds15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_below="@+id/hSpace"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toLeftOf="@+id/vSpace1"
+            android:layout_toStartOf="@+id/vSpace1"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startSeconds15"
             android:text="@string/seconds_15"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnSeconds20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_above="@+id/hSpace"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toLeftOf="@+id/vSpace1"
+            android:layout_toStartOf="@+id/vSpace1"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startSeconds20"
             android:text="@string/seconds_20"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            android:textSize="20sp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
-        <Button
+        <ImageButton
             android:id="@+id/btnOtherTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
-            android:enabled="true"
+            android:layout_toEndOf="@+id/vSpace1"
+            android:layout_toRightOf="@+id/vSpace1"
+            android:background="@drawable/btn_oval"
+            android:contentDescription="@string/other_time"
             android:onClick="startOtherTime"
-            android:text="@string/other_time"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            android:src="@drawable/ic_action_timer" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

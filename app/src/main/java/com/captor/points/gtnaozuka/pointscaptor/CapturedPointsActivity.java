@@ -77,6 +77,7 @@ public class CapturedPointsActivity extends MenuActivity {
         txtView.setTextAppearance(this, R.style.AppTheme);
         txtView.setText(text);
         txtView.setTextSize(15);
+        txtView.setTextColor(getResources().getColor(R.color.text_color));
         if (padding)
             txtView.setPadding(25, 0, 0, 0);
         if (bold) {

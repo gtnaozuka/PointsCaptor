@@ -4,120 +4,143 @@
     android:layout_height="match_parent"
     tools:context="com.captor.points.gtnaozuka.fragment.DistanceFragment">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+
+        <Space
+            android:id="@+id/vSpace1"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/btnMeter1"
+            android:layout_toStartOf="@+id/btnMeter1" />
+
+        <Space
+            android:id="@+id/vSpace2"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/btnMeter1"
+            android:layout_toRightOf="@+id/btnMeter1" />
+
+        <Space
+            android:id="@+id/hSpace"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
 
         <Button
             android:id="@+id/btnMeter1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_above="@+id/btnMeters2"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startMeter1"
             android:text="@string/meter_1"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnMeters2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_above="@+id/hSpace"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toEndOf="@+id/vSpace2"
+            android:layout_toRightOf="@+id/vSpace2"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startMeters2"
             android:text="@string/meters_2"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnMeters5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_below="@+id/hSpace"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toEndOf="@+id/vSpace2"
+            android:layout_toRightOf="@+id/vSpace2"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startMeters5"
             android:text="@string/meters_5"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnMeters10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_below="@+id/btnMeters5"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toLeftOf="@+id/vSpace2"
+            android:layout_toStartOf="@+id/vSpace2"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startMeters10"
             android:text="@string/meters_10"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnMeters15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_below="@+id/hSpace"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toLeftOf="@+id/vSpace1"
+            android:layout_toStartOf="@+id/vSpace1"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startMeters15"
             android:text="@string/meters_15"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnMeters20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_above="@+id/hSpace"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
+            android:layout_toLeftOf="@+id/vSpace1"
+            android:layout_toStartOf="@+id/vSpace1"
+            android:background="@drawable/btn_oval"
             android:enabled="true"
             android:onClick="startMeters20"
             android:text="@string/meters_20"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            android:textSize="20sp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
-        <Button
+        <ImageButton
             android:id="@+id/btnOtherDistance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_rectangle"
-            android:enabled="true"
+            android:layout_toEndOf="@+id/vSpace1"
+            android:layout_toRightOf="@+id/vSpace1"
+            android:background="@drawable/btn_oval"
+            android:contentDescription="@string/other_distance"
             android:onClick="startOtherDistance"
-            android:text="@string/other_distance"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+            android:src="@drawable/ic_action_distance" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

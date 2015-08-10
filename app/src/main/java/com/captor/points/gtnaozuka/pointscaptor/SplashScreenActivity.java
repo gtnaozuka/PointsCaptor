@@ -1,18 +1,18 @@
 package com.captor.points.gtnaozuka.pointscaptor;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.captor.points.gtnaozuka.util.Util;
 
 import java.io.File;
 
-public class SplashScreenActivity extends Activity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     private static final int TIMEOUT = 3000;
 
@@ -23,9 +23,6 @@ public class SplashScreenActivity extends Activity {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Util.loadLanguage(this, sharedPref.getString("Language", "en"));
-        /*SharedPreferences.Editor edit = sharedPref.edit();
-        edit.clear();
-        edit.commit();*/
 
         String directory = Environment.getExternalStorageDirectory().getAbsolutePath() +
                 File.separator + "Android" + File.separator + "data" +

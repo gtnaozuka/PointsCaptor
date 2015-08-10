@@ -1,59 +1,40 @@
 package com.captor.points.gtnaozuka.pointscaptor;
 
-import android.app.ActionBar;
 import android.app.DialogFragment;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-import android.content.Intent;
 
 import com.captor.points.gtnaozuka.dialog.DistanceDialog;
 import com.captor.points.gtnaozuka.dialog.TimeDialog;
-import com.captor.points.gtnaozuka.util.TabsPagerAdapter;
+import com.captor.points.gtnaozuka.tabs.SlidingTabLayout;
+import com.captor.points.gtnaozuka.tabs.ViewPagerAdapter;
 import com.captor.points.gtnaozuka.util.Util;
 
-public class MainActivity extends MenuActivity implements ActionBar.TabListener,
-        DistanceDialog.DistanceListener, TimeDialog.TimeListener {
-
-    private ViewPager viewPager;
+public class MainActivity extends MenuActivity implements DistanceDialog.DistanceListener,
+        TimeDialog.TimeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabsPagerAdapter tpa = new TabsPagerAdapter(getSupportFragmentManager());
-        final ActionBar actionBar = getActionBar();
+        CharSequence titles[] = {getResources().getString(R.string.by_distance), getResources().getString(R.string.by_time)};
+        ViewPagerAdapter vpa = new ViewPagerAdapter(getSupportFragmentManager(), titles, 2);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(tpa);
-        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(vpa);
+
+        SlidingTabLayout stl = (SlidingTabLayout) findViewById(R.id.tabs);
+        stl.setDistributeEvenly(true);
+        stl.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.normal_button);
             }
         });
-
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.addTab(actionBar.newTab().setText(R.string.by_distance).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.by_time).setTabListener(this));
-    }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-        Log.d("Tab", "selected");
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-        Log.d("Tab", "reselected");
+        stl.setViewPager(viewPager);
     }
 
     private void startCaptureActivity(Integer type, Double value) {

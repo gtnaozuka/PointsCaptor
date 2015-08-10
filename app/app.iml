@@ -71,9 +71,30 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.5.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/7.5.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -89,28 +110,32 @@
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="play-services-cast-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-kakadu-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-wfs-12.2" level="project" />
-    <orderEntry type="library" exported="" name="play-services-6.5.87" level="project" />
+    <orderEntry type="library" exported="" name="play-services-appindexing-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="bufr-4.3.16" level="project" />
     <orderEntry type="library" exported="" name="gt-brewer-12.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-ads-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-app-schema-resolver-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-sample-data-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-wms-12.2" level="project" />
     <orderEntry type="library" exported="" name="jt-vectorbinarize-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-kml-12.2" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="gt-app-schema-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalmrsid-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="jt-zonalstats-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="common-2.6.0" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-core-12.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-appstate-7.5.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-games-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="commons-httpclient-3.1" level="project" />
     <orderEntry type="library" exported="" name="ecore-2.6.1" level="project" />
     <orderEntry type="library" exported="" name="commons-beanutils-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="gt-api-12.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-drive-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-metadata-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-referencing3D-12.2" level="project" />
     <orderEntry type="library" exported="" name="geotk-geometry-4.0-M1" level="project" />
@@ -120,6 +145,7 @@
     <orderEntry type="library" exported="" name="swt.win32.win32.x86_64-3.6.1.v3655c" level="project" />
     <orderEntry type="library" exported="" name="gt-shapefile-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-arcgrid-12.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-base-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="omcorba" level="project" />
     <orderEntry type="library" exported="" name="bridj-0.6-c-only" level="project" />
     <orderEntry type="library" exported="" name="jdom-1.1.3" level="project" />
@@ -132,7 +158,6 @@
     <orderEntry type="library" exported="" name="commons-jxpath-1.3" level="project" />
     <orderEntry type="library" exported="" name="gt-jp2k-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalecw-1.1.10" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="opendap-2.1" level="project" />
     <orderEntry type="library" exported="" name="gt-epsg-extension-12.2" level="project" />
     <orderEntry type="library" exported="" name="net.opengis.wfs-12.2" level="project" />
@@ -146,11 +171,13 @@
     <orderEntry type="library" exported="" name="gt-xsd-wps-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalrpftoc-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="net.opengis.csw-12.2" level="project" />
+    <orderEntry type="library" exported="" name="mediarouter-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="jface-3.6.1.M20100825-0800" level="project" />
     <orderEntry type="library" exported="" name="netcdf-4.3.16" level="project" />
     <orderEntry type="library" exported="" name="jt-utils-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="commons-cli-2.0-gt2-pre1" level="project" />
     <orderEntry type="library" exported="" name="gt-grid-12.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="commons-lang-2.3" level="project" />
     <orderEntry type="library" exported="" name="gt-jdbc-h2-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-swt-12.2" level="project" />
@@ -166,12 +193,15 @@
     <orderEntry type="library" exported="" name="gt-validation-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalenvihdr-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="core.runtime-3.6.0.v20100505" level="project" />
+    <orderEntry type="library" exported="" name="play-services-fitness-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-geometry-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-process-geometry-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-vpf-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-netcdf-12.2" level="project" />
     <orderEntry type="library" exported="" name="icu4j-3.4.4" level="project" />
     <orderEntry type="library" exported="" name="gt-jdbc-postgis-12.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-identity-7.5.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-wallet-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-jts-wrapper-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-property-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-jdbc-teradata-12.2" level="project" />
@@ -194,19 +224,24 @@
     <orderEntry type="library" exported="" name="gt-jdbc-spatialite-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-mongodb-12.2" level="project" />
     <orderEntry type="library" exported="" name="postgresql-8.4-701.jdbc3" level="project" />
+    <orderEntry type="library" exported="" name="play-services-safetynet-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-feature-aggregate-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-epsg-wkt-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-imagemosaic-jdbc-12.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-appinvite-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-swing-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-graph-12.2" level="project" />
     <orderEntry type="library" exported="" name="commons-digester-1.7" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-utilities-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="gt-csv-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-feature-pregeneralized-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-transform-12.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-nearby-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-imagereadmt-1.1M012010" level="project" />
     <orderEntry type="library" exported="" name="grib-4.3.16" level="project" />
     <orderEntry type="library" exported="" name="gdal-1.8.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-wearable-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="picocontainer-1.2" level="project" />
     <orderEntry type="library" exported="" name="gt-geotiff-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-jdbc-mysql-12.2" level="project" />
@@ -218,11 +253,14 @@
     <orderEntry type="library" exported="" name="miglayout-3.7-swing" level="project" />
     <orderEntry type="library" exported="" name="log4j-over-slf4j-1.6.4" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-fes-12.2" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-mat-sas-1.1M012010" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-gml3-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-opengis-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalmrsidjp2-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="jai_codec-1.1.3" level="project" />
+    <orderEntry type="library" exported="" name="play-services-gcm-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="jt-rangelookup-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="gt-imageio-ext-gdal-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-epsg-oracle-12.2" level="project" />
@@ -234,6 +272,7 @@
     <orderEntry type="library" exported="" name="mysql-connector-java-5.1.17" level="project" />
     <orderEntry type="library" exported="" name="gt-epsg-hsql-12.2" level="project" />
     <orderEntry type="library" exported="" name="omsvg" level="project" />
+    <orderEntry type="library" exported="" name="play-services-analytics-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-streams-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="gt-complex-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalehdr-1.1.10" level="project" />
@@ -254,7 +293,6 @@
     <orderEntry type="library" exported="" name="gt-xsd-filter-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-sfs-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-geocore-1.1.10" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="gt-xml-12.2" level="project" />
     <orderEntry type="library" exported="" name="jt-contour-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="gt-arcsde-12.2" level="project" />
@@ -268,7 +306,9 @@
     <orderEntry type="library" exported="" name="gt-matfile5-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-property-ng-12.2" level="project" />
     <orderEntry type="library" exported="" name="vecmath-1.3.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-panorama-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-imagereadmt-1.1.10" level="project" />
+    <orderEntry type="library" exported="" name="play-services-location-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-mbtiles-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-coverage-api-12.2" level="project" />
     <orderEntry type="library" exported="" name="net.opengis.wps-12.2" level="project" />
@@ -278,6 +318,7 @@
     <orderEntry type="library" exported="" name="gt-geojson-12.2" level="project" />
     <orderEntry type="library" exported="" name="jai_core-1.1.3" level="project" />
     <orderEntry type="library" exported="" name="xpp3-1.1.3.4.O" level="project" />
+    <orderEntry type="library" exported="" name="play-services-plus-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-ows-12.2" level="project" />
     <orderEntry type="library" exported="" name="org.w3.xlink-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-referencing-12.2" level="project" />
@@ -287,6 +328,7 @@
     <orderEntry type="library" exported="" name="gt-ogr-jni-12.2" level="project" />
     <orderEntry type="library" exported="" name="hsqldb-2.2.8" level="project" />
     <orderEntry type="library" exported="" name="sqlite-jdbc-3.7.2" level="project" />
+    <orderEntry type="library" exported="" name="play-services-maps-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-tiff-1.1.10" level="project" />
   </component>
 </module>
