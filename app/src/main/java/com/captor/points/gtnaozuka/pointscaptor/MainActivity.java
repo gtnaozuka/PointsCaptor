@@ -38,7 +38,7 @@ public class MainActivity extends MenuActivity implements DistanceDialog.Distanc
     }
 
     private void startCaptureActivity(Integer type, Double value) {
-        Intent intent = new Intent(this, CaptureActivity.class);
+        Intent intent = new Intent(this, DefaultCaptureActivity.class);
         intent.putExtra(Util.TYPE_MSG, type);
         intent.putExtra(Util.VALUE_MSG, value);
         startActivity(intent);

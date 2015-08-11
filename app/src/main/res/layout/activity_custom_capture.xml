@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.captor.points.gtnaozuka.pointscaptor.CaptureActivity">
+    tools:context="com.captor.points.gtnaozuka.pointscaptor.CustomCaptureActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_toRightOf="@+id/txtPointsNumber"
                 android:text="@string/captured_points"
                 android:textColor="@color/text_color"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -62,8 +62,8 @@
 
             <ImageButton
                 android:id="@+id/mapsButton"
-                android:layout_width="90dip"
-                android:layout_height="90dip"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/btn_oval"
                 android:contentDescription="@string/maps"
@@ -71,29 +71,29 @@
                 android:src="@drawable/ic_action_map" />
 
             <Space
-                android:layout_width="10dp"
+                android:layout_width="5dp"
                 android:layout_height="match_parent" />
 
             <ImageButton
-                android:id="@+id/btnPlay"
-                android:layout_width="200dip"
-                android:layout_height="200dip"
+                android:id="@+id/btnPlus"
+                android:layout_width="150dip"
+                android:layout_height="150dip"
                 android:adjustViewBounds="true"
                 android:background="@drawable/btn_oval"
-                android:contentDescription="@string/play"
-                android:onClick="playRecord"
+                android:contentDescription="@string/plus"
+                android:onClick="saveNewPoint"
                 android:padding="20dip"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_play" />
+                android:src="@drawable/ic_action_plus" />
 
             <Space
-                android:layout_width="10dp"
+                android:layout_width="5dp"
                 android:layout_height="match_parent" />
 
             <ImageButton
                 android:id="@+id/btnStop"
-                android:layout_width="90dip"
-                android:layout_height="90dip"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/btn_oval"
                 android:contentDescription="@string/stop"
@@ -117,11 +117,11 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/location"
             android:textColor="@color/text_color"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
+            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -132,8 +132,8 @@
 
         <ImageButton
             android:id="@+id/gpsButton"
-            android:layout_width="90dip"
-            android:layout_height="90dip"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/btn_oval"

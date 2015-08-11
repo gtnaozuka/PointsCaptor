@@ -9,8 +9,8 @@ import com.captor.points.gtnaozuka.fragment.TimeFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    CharSequence titles[];
-    int numbOfTabs;
+    private CharSequence titles[];
+    private int numbOfTabs;
 
     public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int numbOfTabs) {
         super(fm);

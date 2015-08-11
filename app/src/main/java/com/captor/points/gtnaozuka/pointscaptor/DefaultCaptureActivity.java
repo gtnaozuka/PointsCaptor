@@ -40,7 +40,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class CaptureActivity extends MenuActivity implements LocationListener,
+public class DefaultCaptureActivity extends MenuActivity implements LocationListener,
         CapturedPointsDialog.CapturedPointsListener,
         DiscardConfirmationDialog.DiscardConfirmationListener,
         StopConfirmationDialog.StopConfirmationListener,
@@ -64,7 +64,7 @@ public class CaptureActivity extends MenuActivity implements LocationListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_capture);
+        setContentView(R.layout.activity_default_capture);
 
         ImageButton imgButton = (ImageButton) findViewById(R.id.mapsButton);
         imgButton.setEnabled(false);

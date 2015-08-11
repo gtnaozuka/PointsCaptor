@@ -95,4 +95,6 @@
 
     <string name="remove_repeated_points">Remover pontos repetidos</string>
     <string name="removed_successfully">Pontos removidos com sucesso</string>
+    <string name="title_activity_custom_capture">CustomCaptureActivity</string>
+    <string name="plus">Salvar novo ponto</string>
 </resources>
