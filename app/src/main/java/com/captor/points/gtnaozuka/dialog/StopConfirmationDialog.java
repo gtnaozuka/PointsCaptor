@@ -8,11 +8,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.captor.points.gtnaozuka.pointscaptor.R;
+import com.captor.points.gtnaozuka.util.Values;
 
 public class StopConfirmationDialog extends DialogFragment {
 
+    private int position;
+
     public interface StopConfirmationListener {
-        void onSCPositiveClick(DialogFragment dialog);
+        void onSCPositiveClick(DialogFragment dialog, int position);
     }
 
     private StopConfirmationListener scListener;
@@ -29,13 +32,15 @@ public class StopConfirmationDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.position = getArguments().getInt(Values.POSITION_MSG);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.drawable.ic_action_warning);
         builder.setTitle(R.string.warning);
         builder.setMessage(R.string.discard_confirmation);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                scListener.onSCPositiveClick(StopConfirmationDialog.this);
+                scListener.onSCPositiveClick(StopConfirmationDialog.this, position);
             }
         });
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

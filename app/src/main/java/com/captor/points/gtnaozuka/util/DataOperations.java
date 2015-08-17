@@ -1,33 +1,17 @@
 package com.captor.points.gtnaozuka.util;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Environment;
-import android.util.DisplayMetrics;
 
 import com.captor.points.gtnaozuka.entity.Location;
 import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.pointscaptor.R;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.Locale;
 
-public class Util {
+public class DataOperations {
 
-    public static final String TYPE_MSG = "com.captor.points.gtnaozuka.pointscaptor.TYPE";
-    public static final String VALUE_MSG = "com.captor.points.gtnaozuka.pointscaptor.VALUE";
-    public static final String DATA_POINT_MSG = "com.captor.points.gtnaozuka.pointscaptor.DATA_POINT";
-    public static final String DATA_LOCATION_MSG = "com.captor.points.gtnaozuka.pointscaptor.DATA_LOCATION";
-    public static final String CURRENT_LOCATION_MSG = "com.captor.points.gtnaozuka.pointscaptor.CURRENT_LOCATION";
-    public static final String STATUS_MSG = "com.captor.points.gtnaozuka.pointscaptor.STATUS";
-
-    public static final int DISTANCE = 1, TIME = 2;
-    public static final int NOT_STARTED = 1, STARTED = 2, FINISHED = 3;
-
-    public static double getDistance(Location src, Location dest) {
+    public static double calculateDistance(Location src, Location dest) {
         double r = 6371000.0;
         double phi1 = Math.toRadians(src.getLatitude());
         double phi2 = Math.toRadians(dest.getLatitude());
@@ -41,7 +25,7 @@ public class Util {
         return r * c;
     }
 
-    public static Point convertLocToPoint(android.location.Location l) {
+    public static Point convertLocationToPoint(android.location.Location l) {
         double r = 6371.0;
 
         Point p = new Point();
@@ -51,13 +35,13 @@ public class Util {
     }
 
     public static Location createNewLocation(android.location.Location l) {
-        Location l2 = new Location();
-        l2.setLatitude(l.getLatitude());
-        l2.setLongitude(l.getLongitude());
-        return l2;
+        Location newLocation = new Location();
+        newLocation.setLatitude(l.getLatitude());
+        newLocation.setLongitude(l.getLongitude());
+        return newLocation;
     }
 
-    public static String convertListPointToString(Context context, ArrayList<Point> dataPoint) {
+    public static String convertPointsToString(Context context, ArrayList<Point> dataPoint) {
         String str = context.getResources().getString(R.string.n) + "\t\t\t" +
                 context.getResources().getString(R.string.x) + "\t\t\t" +
                 context.getResources().getString(R.string.y) + "\n";
@@ -69,7 +53,7 @@ public class Util {
         return str;
     }
 
-    public static String convertListLocationToString(Context context, ArrayList<Location> dataPoint) {
+    public static String convertLocationsToString(Context context, ArrayList<Location> dataPoint) {
         String str = context.getResources().getString(R.string.n) + "\t\t\t" +
                 context.getResources().getString(R.string.latitude) + "\t\t\t" +
                 context.getResources().getString(R.string.longitude) + "\n";
@@ -79,31 +63,6 @@ public class Util {
             i++;
         }
         return str;
-    }
-
-    public static boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
-    }
-
-    public static void delete(File file) {
-        if (!file.exists())
-            return;
-        if (file.isDirectory()) {
-            for (File f : file.listFiles()) {
-                delete(f);
-            }
-        }
-        file.delete();
-    }
-
-    public static void loadLanguage(Context context, String language) {
-        Locale locale = new Locale(language);
-        Resources res = context.getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration config = res.getConfiguration();
-        config.locale = locale;
-        res.updateConfiguration(config, dm);
     }
 
     public static ArrayList<Location> removeRepeatedLocations(ArrayList<Location> data) {

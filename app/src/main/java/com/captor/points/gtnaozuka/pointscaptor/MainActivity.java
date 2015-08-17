@@ -1,71 +1,203 @@
 package com.captor.points.gtnaozuka.pointscaptor;
 
 import android.app.DialogFragment;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.captor.points.gtnaozuka.dialog.CapturedPointsDialog;
+import com.captor.points.gtnaozuka.dialog.DiscardConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.DistanceDialog;
+import com.captor.points.gtnaozuka.dialog.InfoDialog;
+import com.captor.points.gtnaozuka.dialog.LanguageDialog;
+import com.captor.points.gtnaozuka.dialog.StopConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.TimeDialog;
-import com.captor.points.gtnaozuka.tabs.SlidingTabLayout;
-import com.captor.points.gtnaozuka.tabs.ViewPagerAdapter;
-import com.captor.points.gtnaozuka.util.Util;
+import com.captor.points.gtnaozuka.fragment.CaptureTypeFragment;
+import com.captor.points.gtnaozuka.fragment.CustomCaptureFragment;
+import com.captor.points.gtnaozuka.fragment.DefaultCaptureFragment;
+import com.captor.points.gtnaozuka.fragment.DrawerFragment;
+import com.captor.points.gtnaozuka.util.FragmentOperations;
+import com.captor.points.gtnaozuka.util.Values;
 
-public class MainActivity extends MenuActivity implements DistanceDialog.DistanceListener,
-        TimeDialog.TimeListener {
+public class MainActivity extends AppCompatActivity implements LanguageDialog.LanguageListener,
+        DrawerFragment.FragmentDrawerListener, DistanceDialog.DistanceListener,
+        TimeDialog.TimeListener, CapturedPointsDialog.CapturedPointsListener,
+        DiscardConfirmationDialog.DiscardConfirmationListener,
+        StopConfirmationDialog.StopConfirmationListener {
+
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CharSequence titles[] = {getResources().getString(R.string.by_distance), getResources().getString(R.string.by_time)};
-        ViewPagerAdapter vpa = new ViewPagerAdapter(getSupportFragmentManager(), titles, 2);
+        fragment = null;
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(vpa);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        SlidingTabLayout stl = (SlidingTabLayout) findViewById(R.id.tabs);
-        stl.setDistributeEvenly(true);
-        stl.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.normal_button);
-            }
-        });
-        stl.setViewPager(viewPager);
+        DrawerFragment drawerFragment = (DrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        drawerFragment.setDrawerListener(this);
+
+        displayView(0);
     }
 
-    private void startCaptureActivity(Integer type, Double value) {
-        Intent intent = new Intent(this, DefaultCaptureActivity.class);
-        intent.putExtra(Util.TYPE_MSG, type);
-        intent.putExtra(Util.VALUE_MSG, value);
-        startActivity(intent);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.resume();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.resume();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            if (fragment instanceof CustomCaptureFragment) {
+                CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+                ccf.backPress();
+            } else
+                finish();
+        } else {
+            if (fragment instanceof DefaultCaptureFragment) {
+                DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+                dcf.backPress();
+            } else
+                FragmentOperations.oldFragment(this);
+        }
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.changeDrawerItem(position);
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.changeDrawerItem(position);
+        } else
+            displayView(position);
+    }
+
+    public void displayView(int position) {
+        String title = getString(R.string.app_name);
+        String tag = null;
+        switch (position) {
+            case 0:
+                fragment = new CaptureTypeFragment();
+                title = getString(R.string.nav_item_default_capture);
+                tag = getResources().getString(R.string.fragment_capture_type);
+                break;
+            case 1:
+                fragment = new CustomCaptureFragment();
+                title = getResources().getString(R.string.nav_item_custom_capture);
+                tag = getResources().getString(R.string.fragment_custom_capture);
+        }
+
+        if (fragment != null) {
+            FragmentOperations.clearBackStack(this);
+            FragmentOperations.changeFragment(this, fragment, tag);
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
+    }
+
+    public Fragment getFragment() {
+        return fragment;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.info_button:
+                showInfoDialog();
+                return true;
+            case R.id.language_button:
+                showLanguageDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void showInfoDialog() {
+        DialogFragment dialog = new InfoDialog();
+        dialog.show(getFragmentManager(), "InfoDialog");
+    }
+
+    public void showLanguageDialog() {
+        DialogFragment dialog = new LanguageDialog();
+        dialog.show(getFragmentManager(), "LanguageDialog");
+    }
+
+    @Override
+    public void setLanguage(DialogFragment dialog, String language) {
+        dialog.dismiss();
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("Language", language);
+        editor.apply();
+
+        Toast toast = Toast.makeText(getApplicationContext(), R.string.reboot, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void startMeter1(View view) {
-        startCaptureActivity(Util.DISTANCE, 1.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.DISTANCE, 1.0);
     }
 
     public void startMeters2(View view) {
-        startCaptureActivity(Util.DISTANCE, 2.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.DISTANCE, 2.0);
     }
 
     public void startMeters5(View view) {
-        startCaptureActivity(Util.DISTANCE, 5.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.DISTANCE, 5.0);
     }
 
     public void startMeters10(View view) {
-        startCaptureActivity(Util.DISTANCE, 10.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.DISTANCE, 10.0);
     }
 
     public void startMeters15(View view) {
-        startCaptureActivity(Util.DISTANCE, 15.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.DISTANCE, 15.0);
     }
 
     public void startMeters20(View view) {
-        startCaptureActivity(Util.DISTANCE, 20.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.DISTANCE, 20.0);
     }
 
     public void startOtherDistance(View view) {
@@ -74,27 +206,33 @@ public class MainActivity extends MenuActivity implements DistanceDialog.Distanc
     }
 
     public void startSecond1(View view) {
-        startCaptureActivity(Util.TIME, 1000.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.TIME, 1000.0);
     }
 
     public void startSeconds2(View view) {
-        startCaptureActivity(Util.TIME, 2000.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.TIME, 2000.0);
     }
 
     public void startSeconds5(View view) {
-        startCaptureActivity(Util.TIME, 5000.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.TIME, 5000.0);
     }
 
     public void startSeconds10(View view) {
-        startCaptureActivity(Util.TIME, 10000.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.TIME, 10000.0);
     }
 
     public void startSeconds15(View view) {
-        startCaptureActivity(Util.TIME, 15000.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.TIME, 15000.0);
     }
 
     public void startSeconds20(View view) {
-        startCaptureActivity(Util.TIME, 20000.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.TIME, 20000.0);
     }
 
     public void startOtherTime(View view) {
@@ -104,11 +242,152 @@ public class MainActivity extends MenuActivity implements DistanceDialog.Distanc
 
     @Override
     public void onDPositiveClick(DialogFragment dialog, Double value) {
-        startCaptureActivity(Util.DISTANCE, value);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.DISTANCE, value);
     }
 
     @Override
     public void onTPositiveClick(DialogFragment dialog, Double value) {
-        startCaptureActivity(Util.TIME, value * 1000.0);
+        CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
+        ctf.initDefaultCapture(Values.TIME, value * 1000.0);
+    }
+
+    public void playRecord(View view) {
+        DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+        dcf.playRecord();
+    }
+
+    public void saveNewPoint(View view) {
+        CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+        ccf.saveNewPoint();
+    }
+
+    public void stopRecord(View view) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.stopRecord();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.stopRecord();
+        }
+    }
+
+    public void startMapsActivity(View view) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.startMapsActivity();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.startMapsActivity();
+        }
+    }
+
+    public void turnGpsOn(View view) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.turnGpsOn();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.turnGpsOn();
+        }
+    }
+
+    @Override
+    public void viewCapturedPoints(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.viewCapturedPoints(dialog);
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.viewCapturedPoints(dialog);
+        }
+    }
+
+    @Override
+    public void viewInGoogleMaps(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.viewInGoogleMaps(true);
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.viewInGoogleMaps(true);
+        }
+    }
+
+    @Override
+    public void removeRepeatedData(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.removeRepeatedData();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.removeRepeatedData();
+        }
+    }
+
+    @Override
+    public void storeInMemory(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.storeInMemory();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.storeInMemory();
+        }
+    }
+
+    @Override
+    public void shareWithSomeone(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.shareWithSomeone();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.shareWithSomeone();
+        }
+    }
+
+    @Override
+    public void startNewCapture(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.startNewCapture(dialog);
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.startNewCapture(dialog);
+        }
+    }
+
+    @Override
+    public void onDCPositiveClick(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.onDCPositiveClick();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.onDCPositiveClick();
+        }
+    }
+
+    @Override
+    public void onDCNegativeClick(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.onDCNegativeClick();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.onDCNegativeClick();
+        }
+    }
+
+    @Override
+    public void onSCPositiveClick(DialogFragment dialog, int position) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.onSCPositiveClick(position);
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.onSCPositiveClick(position);
+        }
     }
 }

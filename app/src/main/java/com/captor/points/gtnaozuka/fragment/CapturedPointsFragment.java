@@ -1,39 +1,66 @@
-package com.captor.points.gtnaozuka.pointscaptor;
+package com.captor.points.gtnaozuka.fragment;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.captor.points.gtnaozuka.entity.Point;
-import com.captor.points.gtnaozuka.util.Util;
+import com.captor.points.gtnaozuka.pointscaptor.R;
+import com.captor.points.gtnaozuka.util.Values;
 
 import java.util.ArrayList;
 
-public class CapturedPointsActivity extends MenuActivity {
+public class CapturedPointsFragment extends Fragment {
 
     private ArrayList<Point> dataPoint;
     private ArrayList<com.captor.points.gtnaozuka.entity.Location> dataLocation;
 
+    private View rootView;
+    private AppCompatActivity context;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_captured_points);
+    }
 
-        Intent intent = getIntent();
-        dataPoint = intent.getParcelableArrayListExtra(Util.DATA_POINT_MSG);
-        dataLocation = intent.getParcelableArrayListExtra(Util.DATA_LOCATION_MSG);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_captured_points, container, false);
 
-        createTable();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            dataPoint = bundle.getParcelableArrayList(Values.DATA_POINT_MSG);
+            dataLocation = bundle.getParcelableArrayList(Values.DATA_LOCATION_MSG);
+            createTable();
+        }
+
+        return rootView;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        context = (AppCompatActivity) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 
     private void createTable() {
-        TableLayout tl = (TableLayout) findViewById(R.id.table);
+        TableLayout tl = (TableLayout) rootView.findViewById(R.id.table);
         tl.removeAllViewsInLayout();
 
         TableRow tr = createTableRow();
@@ -65,7 +92,7 @@ public class CapturedPointsActivity extends MenuActivity {
     }
 
     private TableRow createTableRow() {
-        TableRow tr = new TableRow(CapturedPointsActivity.this);
+        TableRow tr = new TableRow(context);
         tr.setLayoutParams(new TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
@@ -73,8 +100,8 @@ public class CapturedPointsActivity extends MenuActivity {
     }
 
     private TextView createTextView(String text, boolean padding, boolean bold) {
-        TextView txtView = new TextView(CapturedPointsActivity.this);
-        txtView.setTextAppearance(this, R.style.AppTheme);
+        TextView txtView = new TextView(context);
+        txtView.setTextAppearance(context, R.style.AppTheme);
         txtView.setText(text);
         txtView.setTextSize(15);
         txtView.setTextColor(getResources().getColor(R.color.text_color));
@@ -88,10 +115,10 @@ public class CapturedPointsActivity extends MenuActivity {
     }
 
     private View createHorizontalLine(int size) {
-        View v = new View(CapturedPointsActivity.this);
+        View v = new View(context);
         v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, size));
         v.setBackgroundColor(Color.BLACK);
         return v;
     }
-}
 
+}

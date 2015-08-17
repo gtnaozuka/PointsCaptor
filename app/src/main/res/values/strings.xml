@@ -4,11 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_capture">CaptureActivity</string>
-    <string name="title_activity_captured_points">CapturedPointsActivity</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    <string name="title_activity_menu">MenuActivity</string>
 
     <string name="second_1">1s</string>
     <string name="seconds_2">2s</string>
@@ -94,6 +91,27 @@
 
     <string name="remove_repeated_points">Remove repeated points</string>
     <string name="removed_successfully">Points removed successfully</string>
-    <string name="title_activity_custom_capture">CustomCaptureActivity</string>
     <string name="plus">Save new point</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_default_capture">Default Capture</string>
+    <string name="nav_item_custom_capture">Custom Capture</string>
+    <string name="nav_item_boundary_definition">Boundary Definition</string>
+    <string name="nav_item_mesh_generation">Mesh Generation</string>
+    <string name="nav_item_files_manager">Files Manager</string>
+
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_default_capture</item>
+        <item>@string/nav_item_custom_capture</item>
+        <item>@string/nav_item_boundary_definition</item>
+        <item>@string/nav_item_mesh_generation</item>
+        <item>@string/nav_item_files_manager</item>
+    </string-array>
+
+    <string name="fragment_capture_type">CaptureTypeFragment</string>
+    <string name="fragment_default_capture">DefaultCaptureFragment</string>
+    <string name="fragment_custom_capture">CustomCaptureFragment</string>
+    <string name="fragment_captured_points">CapturedPointsFragment</string>
 </resources>

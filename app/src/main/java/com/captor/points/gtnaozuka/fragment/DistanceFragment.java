@@ -10,9 +10,6 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 
 public class DistanceFragment extends Fragment {
 
-    public DistanceFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_distance, container, false);

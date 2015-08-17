@@ -5,11 +5,8 @@
     <string name="hello_world">Olá Mundo!</string>
     <string name="hello_blank_fragment">Olá, fragmento em branco</string>
     <string name="action_settings">Configurações</string>
-    <string name="title_activity_capture">CaptureActivity</string>
-    <string name="title_activity_captured_points">CapturedPointsActivity</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    <string name="title_activity_menu">MenuActivity</string>
 
     <string name="second_1">1s</string>
     <string name="seconds_2">2s</string>
@@ -95,6 +92,27 @@
 
     <string name="remove_repeated_points">Remover pontos repetidos</string>
     <string name="removed_successfully">Pontos removidos com sucesso</string>
-    <string name="title_activity_custom_capture">CustomCaptureActivity</string>
     <string name="plus">Salvar novo ponto</string>
+
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Fechar</string>
+
+    <string name="nav_item_default_capture">Captura Padrão</string>
+    <string name="nav_item_custom_capture">Captura Personalizada</string>
+    <string name="nav_item_boundary_definition">Definição de Fronteiras</string>
+    <string name="nav_item_mesh_generation">Geração de Malhas</string>
+    <string name="nav_item_files_manager">Gerenciador de Arquivos</string>
+
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_default_capture</item>
+        <item>@string/nav_item_custom_capture</item>
+        <item>@string/nav_item_boundary_definition</item>
+        <item>@string/nav_item_mesh_generation</item>
+        <item>@string/nav_item_files_manager</item>
+    </string-array>
+
+    <string name="fragment_capture_type">Capture Type</string>
+    <string name="fragment_default_capture">Default Capture</string>
+    <string name="fragment_custom_capture">Custom Capture</string>
+    <string name="fragment_captured_points">Captured Points</string>
 </resources>

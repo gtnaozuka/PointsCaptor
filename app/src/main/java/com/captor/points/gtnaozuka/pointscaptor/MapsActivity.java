@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -13,7 +12,8 @@ import android.widget.Toast;
 import com.captor.points.gtnaozuka.dialog.MapActionsDialog;
 import com.captor.points.gtnaozuka.dialog.MapTypeDialog;
 import com.captor.points.gtnaozuka.entity.Location;
-import com.captor.points.gtnaozuka.util.Util;
+import com.captor.points.gtnaozuka.util.FileOperations;
+import com.captor.points.gtnaozuka.util.Values;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -23,13 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class MapsActivity extends AppCompatActivity implements MapActionsDialog.MapActionsListener,
         MapTypeDialog.MapTypeListener {
@@ -70,11 +64,11 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
         });
 
         Intent intent = getIntent();
-        Integer status = intent.getIntExtra(Util.STATUS_MSG, 0);
-        if (status.equals(Util.NOT_STARTED)) {
-            setCameraPosition((Location) intent.getParcelableExtra(Util.CURRENT_LOCATION_MSG));
+        Integer status = intent.getIntExtra(Values.STATUS_MSG, 0);
+        if (status.equals(Values.NOT_STARTED)) {
+            setCameraPosition((Location) intent.getParcelableExtra(Values.CURRENT_LOCATION_MSG));
         } else {
-            ArrayList<Location> dataLocation = intent.getParcelableArrayListExtra(Util.DATA_LOCATION_MSG);
+            ArrayList<Location> dataLocation = intent.getParcelableArrayListExtra(Values.DATA_LOCATION_MSG);
 
             addMarker(dataLocation.get(0), getResources().getString(R.string.start));
 
@@ -89,7 +83,7 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
             map.addPolyline(plOptions);
 
             Location l = dataLocation.get(dataLocation.size() - 1);
-            if (status.equals(Util.FINISHED))
+            if (status.equals(Values.FINISHED))
                 addMarker(l, getResources().getString(R.string.finish));
             setCameraPosition(l);
         }
@@ -122,7 +116,7 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
         GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
             @Override
             public void onSnapshotReady(Bitmap snapshot) {
-                File f = storePhoto(snapshot, "files");
+                File f = FileOperations.storePhoto(MapsActivity.this, FileOperations.FILES_PATH, snapshot);
                 if (f == null)
                     return;
 
@@ -142,7 +136,7 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
         GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
             @Override
             public void onSnapshotReady(Bitmap snapshot) {
-                File f = storePhoto(snapshot, "sent");
+                File f = FileOperations.storePhoto(MapsActivity.this, FileOperations.SENT_PATH, snapshot);
                 if (f == null)
                     return;
 
@@ -163,41 +157,6 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
         };
 
         map.snapshot(callback);
-    }
-
-    private File storePhoto(Bitmap snapshot, String lastFolder) {
-        if (!Util.isExternalStorageWritable()) {
-            Toast toast = Toast.makeText(getApplicationContext(), R.string.unauthorized_access,
-                    Toast.LENGTH_SHORT);
-            toast.show();
-            return null;
-        }
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss", Locale.getDefault());
-        Date d = new Date();
-
-        String directory = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                File.separator + "Android" + File.separator + "data" +
-                File.separator + getPackageName() + File.separator + lastFolder;
-        String filename = "GM_" + df.format(d) + ".png";
-
-        File f = null;
-        try {
-            File fDir = new File(directory);
-            fDir.mkdirs();
-
-            f = new File(fDir, filename);
-            if (!f.exists())
-                f.createNewFile();
-
-            FileOutputStream fos = new FileOutputStream(f);
-            snapshot.compress(Bitmap.CompressFormat.PNG, 90, fos);
-            fos.flush();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return f;
     }
 
     @Override
