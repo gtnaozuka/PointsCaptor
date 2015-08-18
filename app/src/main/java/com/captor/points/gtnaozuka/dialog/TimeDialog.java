@@ -6,12 +6,13 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputType;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.captor.points.gtnaozuka.pointscaptor.R;
+import com.captor.points.gtnaozuka.util.DisplayToast;
 
 public class TimeDialog extends DialogFragment {
 
@@ -54,15 +55,13 @@ public class TimeDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int id) {
                 String input = editText.getText().toString();
                 if (input.matches("")) {
-                    Toast toast = Toast.makeText(getActivity(), R.string.fill_blank_field, Toast.LENGTH_SHORT);
-                    toast.show();
+                    new Handler().post(new DisplayToast(getActivity(), getResources().getString(R.string.fill_blank_field)));
                     return;
                 }
                 Double value = Double.valueOf(input);
                 if (value.equals(0.0)) {
-                    Toast toast = Toast.makeText(getActivity(), input +
-                            getResources().getString(R.string.not_valid), Toast.LENGTH_SHORT);
-                    toast.show();
+                    new Handler().post(new DisplayToast(getActivity(), input +
+                            getResources().getString(R.string.not_valid)));
                     return;
                 }
                 tListener.onTPositiveClick(TimeDialog.this, value);

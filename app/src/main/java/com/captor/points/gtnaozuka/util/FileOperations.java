@@ -3,7 +3,7 @@ package com.captor.points.gtnaozuka.util;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Environment;
-import android.widget.Toast;
+import android.os.Handler;
 
 import com.captor.points.gtnaozuka.pointscaptor.R;
 
@@ -123,9 +123,7 @@ public class FileOperations {
     private static boolean isWritable(Activity activity) {
         String state = Environment.getExternalStorageState();
         if (!Environment.MEDIA_MOUNTED.equals(state)) {
-            Toast toast = Toast.makeText(activity.getApplicationContext(), R.string.unauthorized_access,
-                    Toast.LENGTH_SHORT);
-            toast.show();
+            new Handler().post(new DisplayToast(activity.getApplicationContext(), activity.getResources().getString(R.string.unauthorized_access)));
             return false;
         }
         return true;
@@ -134,9 +132,7 @@ public class FileOperations {
     private static boolean isReadable(Activity activity) {
         String state = Environment.getExternalStorageState();
         if (!Environment.MEDIA_MOUNTED.equals(state) && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            Toast toast = Toast.makeText(activity.getApplicationContext(), R.string.unauthorized_access,
-                    Toast.LENGTH_SHORT);
-            toast.show();
+            new Handler().post(new DisplayToast(activity.getApplicationContext(), activity.getResources().getString(R.string.unauthorized_access)));
             return false;
         }
         return true;

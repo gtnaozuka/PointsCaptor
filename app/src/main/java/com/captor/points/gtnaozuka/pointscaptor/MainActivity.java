@@ -3,6 +3,7 @@ package com.captor.points.gtnaozuka.pointscaptor;
 import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.captor.points.gtnaozuka.dialog.CapturedPointsDialog;
 import com.captor.points.gtnaozuka.dialog.DiscardConfirmationDialog;
@@ -25,6 +25,7 @@ import com.captor.points.gtnaozuka.fragment.CaptureTypeFragment;
 import com.captor.points.gtnaozuka.fragment.CustomCaptureFragment;
 import com.captor.points.gtnaozuka.fragment.DefaultCaptureFragment;
 import com.captor.points.gtnaozuka.fragment.DrawerFragment;
+import com.captor.points.gtnaozuka.util.DisplayToast;
 import com.captor.points.gtnaozuka.util.FragmentOperations;
 import com.captor.points.gtnaozuka.util.Values;
 
@@ -166,8 +167,7 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
         editor.putString("Language", language);
         editor.apply();
 
-        Toast toast = Toast.makeText(getApplicationContext(), R.string.reboot, Toast.LENGTH_SHORT);
-        toast.show();
+        new Handler().post(new DisplayToast(getApplicationContext(), getResources().getString(R.string.reboot)));
     }
 
     public void startMeter1(View view) {

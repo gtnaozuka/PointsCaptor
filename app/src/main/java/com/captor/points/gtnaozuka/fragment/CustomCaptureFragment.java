@@ -1,30 +1,23 @@
 package com.captor.points.gtnaozuka.fragment;
 
 import android.app.DialogFragment;
-import android.content.Context;
 import android.location.GpsStatus;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.captor.points.gtnaozuka.dialog.CapturedPointsDialog;
 import com.captor.points.gtnaozuka.dialog.StopConfirmationDialog;
 import com.captor.points.gtnaozuka.pointscaptor.MainActivity;
 import com.captor.points.gtnaozuka.pointscaptor.R;
 import com.captor.points.gtnaozuka.util.DataOperations;
+import com.captor.points.gtnaozuka.util.DisplayToast;
 import com.captor.points.gtnaozuka.util.Values;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-
-import java.util.ArrayList;
 
 public class CustomCaptureFragment extends CaptureFragment {
 
@@ -33,12 +26,17 @@ public class CustomCaptureFragment extends CaptureFragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_custom_capture, container, false);
 
-        ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
-        imgButton.setEnabled(false);
-        imgButton = (ImageButton) rootView.findViewById(R.id.btnPlus);
-        imgButton.setEnabled(false);
-        imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
-        imgButton.setEnabled(false);
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
+                imgButton.setEnabled(false);
+                imgButton = (ImageButton) rootView.findViewById(R.id.btnPlus);
+                imgButton.setEnabled(false);
+                imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
+                imgButton.setEnabled(false);
+            }
+        });
 
         bundle = this.getArguments();
         if (bundle != null) {
@@ -47,56 +45,25 @@ public class CustomCaptureFragment extends CaptureFragment {
         } else
             bundle = new Bundle();
 
-        if (dataPoint == null) {
-            dataPoint = new ArrayList<>();
-            dataLocation = new ArrayList<>();
-            pointsNum = 0;
-        } else {
-            pointsNum = dataPoint.size();
-            context.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    final TextView txtView = (TextView) rootView.findViewById(R.id.txtPointsNumber);
-                    txtView.setText(pointsNum.toString());
-                }
-            });
-
-            DialogFragment dialog = new CapturedPointsDialog();
-            dialog.setCancelable(false);
-            dialog.show(context.getFragmentManager(), "CapturedPointsDialog");
-        }
-        needsRequestLocation = false;
-
-        locationRequest = new LocationRequest();
-        locationRequest.setInterval(INTERVAL);
-        locationRequest.setFastestInterval(FASTEST_INTERVAL);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-        googleApiClient = new GoogleApiClient.Builder(context)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-        googleApiClient.connect();
-
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.addGpsStatusListener(this);
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            setOnProviderEnabled();
-        }
+        initialize();
 
         return rootView;
     }
 
     @Override
     public void backPress() {
-        if (pointsNum.equals(0)) {
+        if (pointsNum == 0) {
             LocationServices.FusedLocationApi.removeLocationUpdates(
                     googleApiClient, this);
             context.finish();
         } else {
-            ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
-            imgButton.setEnabled(true);
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
+                    imgButton.setEnabled(true);
+                }
+            });
 
             DialogFragment dialog = new StopConfirmationDialog();
             Bundle dialogBundle = new Bundle();
@@ -108,14 +75,19 @@ public class CustomCaptureFragment extends CaptureFragment {
 
     @Override
     public void changeDrawerItem(int position) {
-        if (pointsNum.equals(0)) {
+        if (pointsNum == 0) {
             LocationServices.FusedLocationApi.removeLocationUpdates(
                     googleApiClient, this);
             MainActivity ma = (MainActivity) context;
             ma.displayView(position);
         } else {
-            ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
-            imgButton.setEnabled(true);
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
+                    imgButton.setEnabled(true);
+                }
+            });
 
             DialogFragment dialog = new StopConfirmationDialog();
             Bundle dialogBundle = new Bundle();
@@ -127,21 +99,20 @@ public class CustomCaptureFragment extends CaptureFragment {
 
     public void saveNewPoint() {
         if (pointsNum == 0) {
-            ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
-            imgButton.setEnabled(true);
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
+                    imgButton.setEnabled(true);
+                }
+            });
         }
 
         dataPoint.add(DataOperations.convertLocationToPoint(this.location));
         dataLocation.add(DataOperations.createNewLocation(this.location));
 
         pointsNum++;
-        context.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final TextView txtView = (TextView) rootView.findViewById(R.id.txtPointsNumber);
-                txtView.setText(pointsNum.toString());
-            }
-        });
+        updatePointsNumUI();
     }
 
     @Override
@@ -149,14 +120,17 @@ public class CustomCaptureFragment extends CaptureFragment {
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 googleApiClient, this);
 
-        ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
-        imgButton.setEnabled(false);
-        imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
-        imgButton.setEnabled(true);
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
+                imgButton.setEnabled(false);
+                imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
+                imgButton.setEnabled(true);
+            }
+        });
 
-        DialogFragment dialog = new CapturedPointsDialog();
-        dialog.setCancelable(false);
-        dialog.show(context.getFragmentManager(), "CapturedPointsDialog");
+        onDCNegativeClick();
     }
 
     @Override
@@ -172,18 +146,26 @@ public class CustomCaptureFragment extends CaptureFragment {
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(android.location.Location location) {
+        if (!this.isAdded())
+            return;
+
         this.location = location;
 
         if (isConnecting) {
-            ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
-            imgButton.setEnabled(true);
-            imgButton = (ImageButton) rootView.findViewById(R.id.btnPlus);
-            imgButton.setEnabled(true);
-            if (pointsNum != 0) {
-                imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
-                imgButton.setEnabled(true);
-            }
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
+                    imgButton.setEnabled(true);
+                    imgButton = (ImageButton) rootView.findViewById(R.id.btnPlus);
+                    imgButton.setEnabled(true);
+                    if (pointsNum != 0) {
+                        imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
+                        imgButton.setEnabled(true);
+                    }
+                }
+            });
 
             isConnecting = false;
         }
@@ -194,16 +176,24 @@ public class CustomCaptureFragment extends CaptureFragment {
 
     @Override
     public void onGpsStatusChanged(int event) {
+        if (!this.isAdded())
+            return;
+
         if (event == GpsStatus.GPS_EVENT_STARTED) {
             setOnProviderEnabled();
         } else if (event == GpsStatus.GPS_EVENT_STOPPED) {
-            ImageButton imgButton;
-            imgButton = (ImageButton) rootView.findViewById(R.id.btnPlus);
-            imgButton.setEnabled(false);
-            imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
-            imgButton.setEnabled(false);
-            imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
-            imgButton.setEnabled(false);
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ImageButton imgButton;
+                    imgButton = (ImageButton) rootView.findViewById(R.id.btnPlus);
+                    imgButton.setEnabled(false);
+                    imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
+                    imgButton.setEnabled(false);
+                    imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
+                    imgButton.setEnabled(false);
+                }
+            });
 
             context.runOnUiThread(new Runnable() {
                 @Override
@@ -217,8 +207,7 @@ public class CustomCaptureFragment extends CaptureFragment {
                 }
             });
 
-            Toast toast = Toast.makeText(context, R.string.gps_disabled, Toast.LENGTH_SHORT);
-            toast.show();
+            new Handler().post(new DisplayToast(context, getResources().getString(R.string.gps_disabled)));
         }
     }
 }

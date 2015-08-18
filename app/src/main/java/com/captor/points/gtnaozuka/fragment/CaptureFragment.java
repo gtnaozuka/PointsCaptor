@@ -2,12 +2,16 @@ package com.captor.points.gtnaozuka.fragment;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.GpsStatus;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +20,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.captor.points.gtnaozuka.dialog.CapturedPointsDialog;
 import com.captor.points.gtnaozuka.dialog.DiscardConfirmationDialog;
@@ -25,6 +28,7 @@ import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.pointscaptor.MapsActivity;
 import com.captor.points.gtnaozuka.pointscaptor.R;
 import com.captor.points.gtnaozuka.util.DataOperations;
+import com.captor.points.gtnaozuka.util.DisplayToast;
 import com.captor.points.gtnaozuka.util.FileOperations;
 import com.captor.points.gtnaozuka.util.FragmentOperations;
 import com.captor.points.gtnaozuka.util.Values;
@@ -116,21 +120,21 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
             intent.putExtra(Values.STATUS_MSG, Values.NOT_STARTED);
             intent.putExtra(Values.CURRENT_LOCATION_MSG, DataOperations.createNewLocation(this.location));
         } else {
-            intent.putParcelableArrayListExtra(Values.DATA_LOCATION_MSG, dataLocation);
             if (!finished)
                 intent.putExtra(Values.STATUS_MSG, Values.STARTED);
             else
                 intent.putExtra(Values.STATUS_MSG, Values.FINISHED);
+            intent.putParcelableArrayListExtra(Values.DATA_LOCATION_MSG, dataLocation);
         }
         startActivity(intent);
     }
 
     public void removeRepeatedData() {
+        //Criar um dialog de confirmacao
         dataLocation = DataOperations.removeRepeatedLocations(dataLocation);
         dataPoint = DataOperations.removeRepeatedPoints(dataPoint);
 
-        Toast toast = Toast.makeText(context, getResources().getString(R.string.removed_successfully), Toast.LENGTH_SHORT);
-        toast.show();
+        new Handler().post(new DisplayToast(context, getResources().getString(R.string.removed_successfully)));
     }
 
     public void storeInMemory() {
@@ -140,9 +144,8 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
         if (f == null)
             return;
 
-        Toast toast = Toast.makeText(context, "'" + f.getName() +
-                "'" + getResources().getString(R.string.saved_successfully), Toast.LENGTH_SHORT);
-        toast.show();
+        new Handler().post(new DisplayToast(context, "'" + f.getName() +
+                "'" + getResources().getString(R.string.saved_successfully)));
     }
 
     public void shareWithSomeone() {
@@ -161,17 +164,16 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
 
         try {
             startActivity(Intent.createChooser(intent, getResources().getString(R.string.choose_option)));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast toast = Toast.makeText(context, R.string.no_email_client, Toast.LENGTH_SHORT);
-            toast.show();
+        } catch (ActivityNotFoundException ex) {
+            new Handler().post(new DisplayToast(context, getResources().getString(R.string.no_email_client)));
         }
     }
 
     public void startNewCapture(DialogFragment dialog) {
         dialog.dismiss();
 
-        DialogFragment dialog2 = new DiscardConfirmationDialog();
-        dialog2.show(context.getFragmentManager(), "DiscardConfirmationDialog");
+        DialogFragment newDialog = new DiscardConfirmationDialog();
+        newDialog.show(context.getFragmentManager(), "DiscardConfirmationDialog");
     }
 
     public void onDCPositiveClick() {
@@ -181,14 +183,13 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
         dataLocation = new ArrayList<>();
         pointsNum = 0;
 
-        TextView txtView = (TextView) rootView.findViewById(R.id.txtPointsNumber);
-        txtView.setText(pointsNum.toString());
+        updatePointsNumUI();
     }
 
     public void onDCNegativeClick() {
-        DialogFragment dialog2 = new CapturedPointsDialog();
-        dialog2.setCancelable(false);
-        dialog2.show(context.getFragmentManager(), "CapturedPointsDialog");
+        DialogFragment newDialog = new CapturedPointsDialog();
+        newDialog.setCancelable(false);
+        newDialog.show(context.getFragmentManager(), "CapturedPointsDialog");
     }
 
     public abstract void onSCPositiveClick(int position);
@@ -246,6 +247,47 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
                 }
             }
         }).start();
+    }
+
+    protected void updatePointsNumUI() {
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView txtView = (TextView) rootView.findViewById(R.id.txtPointsNumber);
+                txtView.setText(pointsNum.toString());
+            }
+        });
+    }
+
+    protected void initialize() {
+        needsRequestLocation = false;
+        if (dataPoint == null) {
+            dataPoint = new ArrayList<>();
+            dataLocation = new ArrayList<>();
+            pointsNum = 0;
+        } else {
+            pointsNum = dataPoint.size();
+            updatePointsNumUI();
+            onDCNegativeClick();
+        }
+
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(INTERVAL);
+        locationRequest.setFastestInterval(FASTEST_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        googleApiClient = new GoogleApiClient.Builder(context)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        googleApiClient.connect();
+
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager.addGpsStatusListener(this);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            setOnProviderEnabled();
+        }
     }
 
     protected void setOnProviderEnabled() {

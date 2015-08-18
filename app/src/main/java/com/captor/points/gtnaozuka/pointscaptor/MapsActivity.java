@@ -6,12 +6,13 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.captor.points.gtnaozuka.dialog.MapActionsDialog;
 import com.captor.points.gtnaozuka.dialog.MapTypeDialog;
 import com.captor.points.gtnaozuka.entity.Location;
+import com.captor.points.gtnaozuka.util.DisplayToast;
 import com.captor.points.gtnaozuka.util.FileOperations;
 import com.captor.points.gtnaozuka.util.Values;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -120,9 +121,8 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
                 if (f == null)
                     return;
 
-                Toast toast = Toast.makeText(getApplicationContext(), "'" + f.getName() +
-                        "'" + getResources().getString(R.string.saved_successfully), Toast.LENGTH_SHORT);
-                toast.show();
+                new Handler().post(new DisplayToast(getApplicationContext(), "'" + f.getName() +
+                        "'" + getResources().getString(R.string.saved_successfully)));
             }
         };
 
@@ -150,8 +150,7 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
                 try {
                     startActivity(Intent.createChooser(intent, getResources().getString(R.string.choose_option)));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Toast toast = Toast.makeText(getApplicationContext(), R.string.no_email_client, Toast.LENGTH_SHORT);
-                    toast.show();
+                    new Handler().post(new DisplayToast(getApplicationContext(), getResources().getString(R.string.no_email_client)));
                 }
             }
         };
