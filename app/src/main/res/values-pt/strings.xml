@@ -116,6 +116,7 @@
     <string name="fragment_custom_capture">Custom Capture</string>
     <string name="fragment_captured_points">Captured Points</string>
     <string name="fragment_file_manager">FileManagerFragment</string>
+    <string name="fragment_boundary_definition">BoundaryDefinitionFragment</string>
 
     <string name="no_file_found">Nenhum arquivo encontrado</string>
     <string name="delete_file">Apagar</string>

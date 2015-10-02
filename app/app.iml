@@ -117,8 +117,8 @@
     <orderEntry type="library" exported="" name="imageio-ext-kakadu-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-wfs-12.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-appindexing-7.5.0" level="project" />
-    <orderEntry type="library" exported="" name="bufr-4.3.16" level="project" />
     <orderEntry type="library" exported="" name="gt-brewer-12.2" level="project" />
+    <orderEntry type="library" exported="" name="bufr-4.3.16" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="gt-app-schema-resolver-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-sample-data-12.2" level="project" />
@@ -141,37 +141,37 @@
     <orderEntry type="library" exported="" name="gt-referencing3D-12.2" level="project" />
     <orderEntry type="library" exported="" name="geotk-geometry-4.0-M1" level="project" />
     <orderEntry type="library" exported="" name="gt-coveragetools-12.2" level="project" />
-    <orderEntry type="library" exported="" name="xpp3_min-1.1.4c" level="project" />
     <orderEntry type="library" exported="" name="gt-charts-12.2" level="project" />
+    <orderEntry type="library" exported="" name="xpp3_min-1.1.4c" level="project" />
     <orderEntry type="library" exported="" name="swt.win32.win32.x86_64-3.6.1.v3655c" level="project" />
     <orderEntry type="library" exported="" name="gt-shapefile-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-arcgrid-12.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-base-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="omcorba" level="project" />
     <orderEntry type="library" exported="" name="bridj-0.6-c-only" level="project" />
-    <orderEntry type="library" exported="" name="jdom-1.1.3" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalarcbinarygrid-1.1.10" level="project" />
+    <orderEntry type="library" exported="" name="jdom-1.1.3" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-arcgrid-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="openmap" level="project" />
     <orderEntry type="library" exported="" name="jgridshift-1.0" level="project" />
-    <orderEntry type="library" exported="" name="gt-xsd-sld-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-ogr-core-12.2" level="project" />
+    <orderEntry type="library" exported="" name="gt-xsd-sld-12.2" level="project" />
     <orderEntry type="library" exported="" name="commons-jxpath-1.3" level="project" />
     <orderEntry type="library" exported="" name="gt-jp2k-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalecw-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="opendap-2.1" level="project" />
-    <orderEntry type="library" exported="" name="gt-epsg-extension-12.2" level="project" />
     <orderEntry type="library" exported="" name="net.opengis.wfs-12.2" level="project" />
+    <orderEntry type="library" exported="" name="gt-epsg-extension-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-wms-12.2" level="project" />
     <orderEntry type="library" exported="" name="json-simple-1.1" level="project" />
     <orderEntry type="library" exported="" name="gt-sample-data-access-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-process-raster-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-imagemosaic-12.2" level="project" />
     <orderEntry type="library" exported="" name="jsqlparser-0.3.14" level="project" />
-    <orderEntry type="library" exported="" name="imageio-ext-gdalidrisi-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-wps-12.2" level="project" />
-    <orderEntry type="library" exported="" name="imageio-ext-gdalrpftoc-1.1.10" level="project" />
+    <orderEntry type="library" exported="" name="imageio-ext-gdalidrisi-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="net.opengis.csw-12.2" level="project" />
+    <orderEntry type="library" exported="" name="imageio-ext-gdalrpftoc-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="mediarouter-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="jface-3.6.1.M20100825-0800" level="project" />
     <orderEntry type="library" exported="" name="netcdf-4.3.16" level="project" />
@@ -187,11 +187,11 @@
     <orderEntry type="library" exported="" name="gt-grassraster-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-jdbc-db2-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-jdbc-12.2" level="project" />
-    <orderEntry type="library" exported="" name="commons-logging-1.1.1" level="project" />
-    <orderEntry type="library" exported="" name="commons-codec-1.2" level="project" />
-    <orderEntry type="library" exported="" name="gt-wfs-12.2" level="project" />
     <orderEntry type="library" exported="" name="commons-pool-1.5.4" level="project" />
+    <orderEntry type="library" exported="" name="commons-logging-1.1.1" level="project" />
+    <orderEntry type="library" exported="" name="gt-wfs-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-validation-12.2" level="project" />
+    <orderEntry type="library" exported="" name="commons-codec-1.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalenvihdr-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="core.runtime-3.6.0.v20100505" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-7.5.0" level="project" />
@@ -234,10 +234,10 @@
     <orderEntry type="library" exported="" name="gt-graph-12.2" level="project" />
     <orderEntry type="library" exported="" name="commons-digester-1.7" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="imageio-ext-utilities-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="gt-csv-12.2" level="project" />
-    <orderEntry type="library" exported="" name="gt-feature-pregeneralized-12.2" level="project" />
+    <orderEntry type="library" exported="" name="imageio-ext-utilities-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="gt-transform-12.2" level="project" />
+    <orderEntry type="library" exported="" name="gt-feature-pregeneralized-12.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-nearby-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-imagereadmt-1.1M012010" level="project" />
     <orderEntry type="library" exported="" name="grib-4.3.16" level="project" />
@@ -247,8 +247,8 @@
     <orderEntry type="library" exported="" name="gt-geotiff-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-jdbc-mysql-12.2" level="project" />
     <orderEntry type="library" exported="" name="geodb-0.7-RC2" level="project" />
-    <orderEntry type="library" exported="" name="gt-imagepyramid-12.2" level="project" />
     <orderEntry type="library" exported="" name="xml-commons-resolver-1.2" level="project" />
+    <orderEntry type="library" exported="" name="gt-imagepyramid-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-image-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-wps-12.2" level="project" />
     <orderEntry type="library" exported="" name="miglayout-3.7-swing" level="project" />
@@ -270,8 +270,8 @@
     <orderEntry type="library" exported="" name="gt-render-12.2" level="project" />
     <orderEntry type="library" exported="" name="xsd-2.6.0" level="project" />
     <orderEntry type="library" exported="" name="gt-data-12.2" level="project" />
-    <orderEntry type="library" exported="" name="gt-main-12.2" level="project" />
     <orderEntry type="library" exported="" name="mysql-connector-java-5.1.17" level="project" />
+    <orderEntry type="library" exported="" name="gt-main-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-epsg-hsql-12.2" level="project" />
     <orderEntry type="library" exported="" name="omsvg" level="project" />
     <orderEntry type="library" exported="" name="play-services-analytics-7.5.0" level="project" />
@@ -282,26 +282,26 @@
     <orderEntry type="library" exported="" name="slf4j-log4j12-1.6.4" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalkakadujp2-1.1.10" level="project" />
     <orderEntry type="library" exported="" name="omj3d" level="project" />
-    <orderEntry type="library" exported="" name="swt.gtk.linux.x86-3.6.1.v3655c" level="project" />
     <orderEntry type="library" exported="" name="gt-process-feature-12.2" level="project" />
+    <orderEntry type="library" exported="" name="swt.gtk.linux.x86-3.6.1.v3655c" level="project" />
     <orderEntry type="library" exported="" name="spatialite-jdbc-3.7.2-2.4" level="project" />
     <orderEntry type="library" exported="" name="gt-gtopo30-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-process-12.2" level="project" />
     <orderEntry type="library" exported="" name="jai_imageio-1.1" level="project" />
     <orderEntry type="library" exported="" name="jt-vectorize-1.3.1" level="project" />
     <orderEntry type="library" exported="" name="gt-svg-12.2" level="project" />
-    <orderEntry type="library" exported="" name="gt-xsd-csw-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalerdasimg-1.1.10" level="project" />
+    <orderEntry type="library" exported="" name="gt-xsd-csw-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-xsd-filter-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-sfs-12.2" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-geocore-1.1.10" level="project" />
-    <orderEntry type="library" exported="" name="gt-xml-12.2" level="project" />
     <orderEntry type="library" exported="" name="jt-contour-1.3.1" level="project" />
+    <orderEntry type="library" exported="" name="gt-xml-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-arcsde-12.2" level="project" />
     <orderEntry type="library" exported="" name="core.commands-3.6.0.I20100512-1500" level="project" />
     <orderEntry type="library" exported="" name="jts-1.13" level="project" />
-    <orderEntry type="library" exported="" name="gt-xsd-gml2-12.2" level="project" />
     <orderEntry type="library" exported="" name="equinox.common-3.6.0.v20100503" level="project" />
+    <orderEntry type="library" exported="" name="gt-xsd-gml2-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-ogr-bridj-12.2" level="project" />
     <orderEntry type="library" exported="" name="commons-dbcp-1.4" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-gdalecwjp2-1.1.10" level="project" />
@@ -314,8 +314,8 @@
     <orderEntry type="library" exported="" name="gt-mbtiles-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-coverage-api-12.2" level="project" />
     <orderEntry type="library" exported="" name="net.opengis.wps-12.2" level="project" />
-    <orderEntry type="library" exported="" name="gt-complex-12.2-tests" level="project" />
     <orderEntry type="library" exported="" name="gt-geopkg-12.2" level="project" />
+    <orderEntry type="library" exported="" name="gt-complex-12.2-tests" level="project" />
     <orderEntry type="library" exported="" name="gt-epsg-postgresql-12.2" level="project" />
     <orderEntry type="library" exported="" name="gt-geojson-12.2" level="project" />
     <orderEntry type="library" exported="" name="jai_core-1.1.3" level="project" />
@@ -328,8 +328,8 @@
     <orderEntry type="library" exported="" name="batik-transcoder-1.7" level="project" />
     <orderEntry type="library" exported="" name="h2-1.1.119" level="project" />
     <orderEntry type="library" exported="" name="gt-ogr-jni-12.2" level="project" />
-    <orderEntry type="library" exported="" name="hsqldb-2.2.8" level="project" />
     <orderEntry type="library" exported="" name="sqlite-jdbc-3.7.2" level="project" />
+    <orderEntry type="library" exported="" name="hsqldb-2.2.8" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="imageio-ext-tiff-1.1.10" level="project" />
   </component>

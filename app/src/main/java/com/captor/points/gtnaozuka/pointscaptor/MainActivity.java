@@ -22,6 +22,7 @@ import com.captor.points.gtnaozuka.dialog.InfoDialog;
 import com.captor.points.gtnaozuka.dialog.LanguageDialog;
 import com.captor.points.gtnaozuka.dialog.StopConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.TimeDialog;
+import com.captor.points.gtnaozuka.fragment.BoundaryDefinitionFragment;
 import com.captor.points.gtnaozuka.fragment.CaptureTypeFragment;
 import com.captor.points.gtnaozuka.fragment.CustomCaptureFragment;
 import com.captor.points.gtnaozuka.fragment.DataFragment;
@@ -115,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
                 tag = getResources().getString(R.string.fragment_custom_capture);
                 break;
             case 2:
+                fragment = new BoundaryDefinitionFragment();
+                title = getResources().getString(R.string.nav_item_boundary_definition);
+                tag = getResources().getString(R.string.fragment_boundary_definition);
                 break;
             case 3:
                 break;
