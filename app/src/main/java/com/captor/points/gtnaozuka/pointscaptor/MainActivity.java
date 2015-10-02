@@ -17,23 +17,26 @@ import android.view.View;
 import com.captor.points.gtnaozuka.dialog.CapturedPointsDialog;
 import com.captor.points.gtnaozuka.dialog.DiscardConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.DistanceDialog;
+import com.captor.points.gtnaozuka.dialog.DataDialog;
 import com.captor.points.gtnaozuka.dialog.InfoDialog;
 import com.captor.points.gtnaozuka.dialog.LanguageDialog;
 import com.captor.points.gtnaozuka.dialog.StopConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.TimeDialog;
 import com.captor.points.gtnaozuka.fragment.CaptureTypeFragment;
 import com.captor.points.gtnaozuka.fragment.CustomCaptureFragment;
+import com.captor.points.gtnaozuka.fragment.DataFragment;
 import com.captor.points.gtnaozuka.fragment.DefaultCaptureFragment;
 import com.captor.points.gtnaozuka.fragment.DrawerFragment;
+import com.captor.points.gtnaozuka.fragment.FileManagerFragment;
 import com.captor.points.gtnaozuka.util.DisplayToast;
-import com.captor.points.gtnaozuka.util.FragmentOperations;
-import com.captor.points.gtnaozuka.util.Values;
+import com.captor.points.gtnaozuka.util.operations.FragmentOperations;
+import com.captor.points.gtnaozuka.util.Constants;
 
 public class MainActivity extends AppCompatActivity implements LanguageDialog.LanguageListener,
         DrawerFragment.FragmentDrawerListener, DistanceDialog.DistanceListener,
         TimeDialog.TimeListener, CapturedPointsDialog.CapturedPointsListener,
         DiscardConfirmationDialog.DiscardConfirmationListener,
-        StopConfirmationDialog.StopConfirmationListener {
+        StopConfirmationDialog.StopConfirmationListener, DataDialog.FileManagerListener {
 
     private Fragment fragment;
 
@@ -110,6 +113,15 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
                 fragment = new CustomCaptureFragment();
                 title = getResources().getString(R.string.nav_item_custom_capture);
                 tag = getResources().getString(R.string.fragment_custom_capture);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                fragment = new FileManagerFragment();
+                title = getResources().getString(R.string.nav_item_files_manager);
+                tag = getResources().getString(R.string.fragment_file_manager);
         }
 
         if (fragment != null) {
@@ -172,32 +184,32 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
 
     public void startMeter1(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.DISTANCE, 1.0);
+        ctf.initDefaultCapture(Constants.DISTANCE, 1.0);
     }
 
     public void startMeters2(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.DISTANCE, 2.0);
+        ctf.initDefaultCapture(Constants.DISTANCE, 2.0);
     }
 
     public void startMeters5(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.DISTANCE, 5.0);
+        ctf.initDefaultCapture(Constants.DISTANCE, 5.0);
     }
 
     public void startMeters10(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.DISTANCE, 10.0);
+        ctf.initDefaultCapture(Constants.DISTANCE, 10.0);
     }
 
     public void startMeters15(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.DISTANCE, 15.0);
+        ctf.initDefaultCapture(Constants.DISTANCE, 15.0);
     }
 
     public void startMeters20(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.DISTANCE, 20.0);
+        ctf.initDefaultCapture(Constants.DISTANCE, 20.0);
     }
 
     public void startOtherDistance(View view) {
@@ -207,32 +219,32 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
 
     public void startSecond1(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.TIME, 1000.0);
+        ctf.initDefaultCapture(Constants.TIME, 1000.0);
     }
 
     public void startSeconds2(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.TIME, 2000.0);
+        ctf.initDefaultCapture(Constants.TIME, 2000.0);
     }
 
     public void startSeconds5(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.TIME, 5000.0);
+        ctf.initDefaultCapture(Constants.TIME, 5000.0);
     }
 
     public void startSeconds10(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.TIME, 10000.0);
+        ctf.initDefaultCapture(Constants.TIME, 10000.0);
     }
 
     public void startSeconds15(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.TIME, 15000.0);
+        ctf.initDefaultCapture(Constants.TIME, 15000.0);
     }
 
     public void startSeconds20(View view) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.TIME, 20000.0);
+        ctf.initDefaultCapture(Constants.TIME, 20000.0);
     }
 
     public void startOtherTime(View view) {
@@ -243,13 +255,13 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
     @Override
     public void onDPositiveClick(DialogFragment dialog, Double value) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.DISTANCE, value);
+        ctf.initDefaultCapture(Constants.DISTANCE, value);
     }
 
     @Override
     public void onTPositiveClick(DialogFragment dialog, Double value) {
         CaptureTypeFragment ctf = (CaptureTypeFragment) fragment;
-        ctf.initDefaultCapture(Values.TIME, value * 1000.0);
+        ctf.initDefaultCapture(Constants.TIME, value * 1000.0);
     }
 
     public void playRecord(View view) {
@@ -300,6 +312,12 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
         } else if (fragment instanceof CustomCaptureFragment) {
             CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
             ccf.viewCapturedPoints(dialog);
+        } else if (fragment instanceof FileManagerFragment) {
+            Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
+            if (child instanceof DataFragment) {
+                DataFragment df = (DataFragment) child;
+                df.viewCapturedPoints(dialog);
+            }
         }
     }
 
@@ -311,6 +329,12 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
         } else if (fragment instanceof CustomCaptureFragment) {
             CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
             ccf.viewInGoogleMaps(true);
+        } else if (fragment instanceof FileManagerFragment) {
+            Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
+            if (child instanceof DataFragment) {
+                DataFragment df = (DataFragment) child;
+                df.viewInGoogleMaps();
+            }
         }
     }
 
@@ -322,6 +346,12 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
         } else if (fragment instanceof CustomCaptureFragment) {
             CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
             ccf.removeRepeatedData();
+        } else if (fragment instanceof FileManagerFragment) {
+            Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
+            if (child instanceof DataFragment) {
+                DataFragment df = (DataFragment) child;
+                df.removeRepeatedData();
+            }
         }
     }
 
@@ -344,6 +374,21 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
         } else if (fragment instanceof CustomCaptureFragment) {
             CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
             ccf.shareWithSomeone();
+        } else if (fragment instanceof FileManagerFragment) {
+            Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
+            if (child instanceof DataFragment) {
+                DataFragment df = (DataFragment) child;
+                df.shareWithSomeone();
+            }
+        }
+    }
+
+    @Override
+    public void deleteFile(DialogFragment dialog) {
+        Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
+        if (child instanceof DataFragment) {
+            DataFragment df = (DataFragment) child;
+            df.deleteFile(dialog);
         }
     }
 

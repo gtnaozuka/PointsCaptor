@@ -1,4 +1,4 @@
-package com.captor.points.gtnaozuka.util;
+package com.captor.points.gtnaozuka.util.operations;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.os.Handler;
 
 import com.captor.points.gtnaozuka.pointscaptor.R;
+import com.captor.points.gtnaozuka.util.DisplayToast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -21,6 +23,8 @@ public class FileOperations {
 
     public static String FILES_PATH;
     public static String SENT_PATH;
+    public static final String THUMBS_CACHE_DIR = "thumbs";
+    public static final String IMAGES_CACHE_DIR = "images";
 
     public static void definePaths(String packageName) {
         String subPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -95,29 +99,44 @@ public class FileOperations {
         return f;
     }
 
-    public static File[] listAllFiles(Activity activity, String path) {
+    public static String[] listAllFiles(Activity activity, String path, String extension) {
         if (!isReadable(activity))
             return null;
 
         File filePath = new File(path);
-        return filePath.listFiles();
+
+        ArrayList<String> fileList = new ArrayList<>();
+        for (String filename : filePath.list()) {
+            if (getFileExtension(filename).equals(extension))
+                fileList.add(filename);
+        }
+        String[] files = new String[fileList.size()];
+        files = fileList.toArray(files);
+
+        return DataOperations.reverse(files);
     }
 
-    public static String read(String folder, String filename) {
+    public static ArrayList<String> read(String folder, String filename) {
         String filePath = folder + File.separator + filename;
 
-        String content = "";
+        ArrayList<String> content = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
-            String line = br.readLine();
-            while (line != null) {
-                content += line;
-                line = br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                content.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return content;
+    }
+
+    public static String getFileExtension(String filename) {
+        if (filename.lastIndexOf(".") != -1 && filename.lastIndexOf(".") != 0)
+            return filename.substring(filename.lastIndexOf(".") + 1);
+        else
+            return "";
     }
 
     private static boolean isWritable(Activity activity) {

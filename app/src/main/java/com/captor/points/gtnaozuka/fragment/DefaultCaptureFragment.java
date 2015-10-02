@@ -15,10 +15,10 @@ import com.captor.points.gtnaozuka.dialog.StopConfirmationDialog;
 import com.captor.points.gtnaozuka.entity.Location;
 import com.captor.points.gtnaozuka.pointscaptor.MainActivity;
 import com.captor.points.gtnaozuka.pointscaptor.R;
-import com.captor.points.gtnaozuka.util.DataOperations;
+import com.captor.points.gtnaozuka.util.operations.DataOperations;
 import com.captor.points.gtnaozuka.util.DisplayToast;
-import com.captor.points.gtnaozuka.util.FragmentOperations;
-import com.captor.points.gtnaozuka.util.Values;
+import com.captor.points.gtnaozuka.util.operations.FragmentOperations;
+import com.captor.points.gtnaozuka.util.Constants;
 import com.google.android.gms.location.LocationServices;
 
 public class DefaultCaptureFragment extends CaptureFragment {
@@ -47,10 +47,10 @@ public class DefaultCaptureFragment extends CaptureFragment {
 
         bundle = this.getArguments();
         if (bundle != null) {
-            type = bundle.getInt(Values.TYPE_MSG, 0);
-            value = bundle.getDouble(Values.VALUE_MSG, 0.0);
-            dataPoint = bundle.getParcelableArrayList(Values.DATA_POINT_MSG);
-            dataLocation = bundle.getParcelableArrayList(Values.DATA_LOCATION_MSG);
+            type = bundle.getInt(Constants.TYPE_MSG, 0);
+            value = bundle.getDouble(Constants.VALUE_MSG, 0.0);
+            dataPoint = bundle.getParcelableArrayList(Constants.DATA_POINT_MSG);
+            dataLocation = bundle.getParcelableArrayList(Constants.DATA_LOCATION_MSG);
         }
 
         status = STOPPED;
@@ -71,7 +71,7 @@ public class DefaultCaptureFragment extends CaptureFragment {
 
             DialogFragment dialog = new StopConfirmationDialog();
             Bundle dialogBundle = new Bundle();
-            dialogBundle.putInt(Values.POSITION_MSG, -1);
+            dialogBundle.putInt(Constants.POSITION_MSG, -1);
             dialog.setArguments(dialogBundle);
             dialog.show(context.getFragmentManager(), "StopConfirmationDialog");
         }
@@ -90,7 +90,7 @@ public class DefaultCaptureFragment extends CaptureFragment {
 
             DialogFragment dialog = new StopConfirmationDialog();
             Bundle dialogBundle = new Bundle();
-            dialogBundle.putInt(Values.POSITION_MSG, position);
+            dialogBundle.putInt(Constants.POSITION_MSG, position);
             dialog.setArguments(dialogBundle);
             dialog.show(context.getFragmentManager(), "StopConfirmationDialog");
         }
@@ -101,9 +101,9 @@ public class DefaultCaptureFragment extends CaptureFragment {
             status = PLAYED;
 
             Runnable r = null;
-            if (type.equals(Values.DISTANCE)) {
+            if (type.equals(Constants.DISTANCE)) {
                 r = threadByDistance();
-            } else if (type.equals(Values.TIME)) {
+            } else if (type.equals(Constants.TIME)) {
                 r = threadByTime();
             }
             Thread t = new Thread(r);

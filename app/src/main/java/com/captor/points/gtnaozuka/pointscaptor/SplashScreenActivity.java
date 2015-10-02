@@ -7,8 +7,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.captor.points.gtnaozuka.util.FileOperations;
-import com.captor.points.gtnaozuka.util.LanguageOperations;
+import com.captor.points.gtnaozuka.util.operations.FileOperations;
+import com.captor.points.gtnaozuka.util.operations.LanguageOperations;
 
 import java.io.File;
 

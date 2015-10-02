@@ -27,11 +27,11 @@ import com.captor.points.gtnaozuka.entity.Location;
 import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.pointscaptor.MapsActivity;
 import com.captor.points.gtnaozuka.pointscaptor.R;
-import com.captor.points.gtnaozuka.util.DataOperations;
+import com.captor.points.gtnaozuka.util.operations.DataOperations;
 import com.captor.points.gtnaozuka.util.DisplayToast;
-import com.captor.points.gtnaozuka.util.FileOperations;
-import com.captor.points.gtnaozuka.util.FragmentOperations;
-import com.captor.points.gtnaozuka.util.Values;
+import com.captor.points.gtnaozuka.util.operations.FileOperations;
+import com.captor.points.gtnaozuka.util.operations.FragmentOperations;
+import com.captor.points.gtnaozuka.util.Constants;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -108,8 +108,8 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
     public void viewCapturedPoints(DialogFragment dialog) {
         dialog.dismiss();
 
-        bundle.putParcelableArrayList(Values.DATA_POINT_MSG, dataPoint);
-        bundle.putParcelableArrayList(Values.DATA_LOCATION_MSG, dataLocation);
+        bundle.putParcelableArrayList(Constants.DATA_POINT_MSG, dataPoint);
+        bundle.putParcelableArrayList(Constants.DATA_LOCATION_MSG, dataLocation);
 
         FragmentOperations.newFragment(context, new CapturedPointsFragment(), bundle, getResources().getString(R.string.fragment_captured_points));
     }
@@ -117,14 +117,14 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
     public void viewInGoogleMaps(boolean finished) {
         Intent intent = new Intent(context, MapsActivity.class);
         if (pointsNum == 0) {
-            intent.putExtra(Values.STATUS_MSG, Values.NOT_STARTED);
-            intent.putExtra(Values.CURRENT_LOCATION_MSG, DataOperations.createNewLocation(this.location));
+            intent.putExtra(Constants.STATUS_MSG, Constants.NOT_STARTED);
+            intent.putExtra(Constants.CURRENT_LOCATION_MSG, DataOperations.createNewLocation(this.location));
         } else {
             if (!finished)
-                intent.putExtra(Values.STATUS_MSG, Values.STARTED);
+                intent.putExtra(Constants.STATUS_MSG, Constants.STARTED);
             else
-                intent.putExtra(Values.STATUS_MSG, Values.FINISHED);
-            intent.putParcelableArrayListExtra(Values.DATA_LOCATION_MSG, dataLocation);
+                intent.putExtra(Constants.STATUS_MSG, Constants.FINISHED);
+            intent.putParcelableArrayListExtra(Constants.DATA_LOCATION_MSG, dataLocation);
         }
         startActivity(intent);
     }
@@ -138,7 +138,7 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
     }
 
     public void storeInMemory() {
-        String content = DataOperations.convertLocationsToString(context, dataLocation) + "\n\n\n" +
+        String content = DataOperations.convertLocationsToString(context, dataLocation) + "----------\n" +
                 DataOperations.convertPointsToString(context, dataPoint);
         File f = FileOperations.storeFile(context, FileOperations.FILES_PATH, content);
         if (f == null)
@@ -149,7 +149,7 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
     }
 
     public void shareWithSomeone() {
-        String content = DataOperations.convertLocationsToString(context, dataLocation) + "\n\n\n" +
+        String content = DataOperations.convertLocationsToString(context, dataLocation) + "----------\n" +
                 DataOperations.convertPointsToString(context, dataPoint);
         File f = FileOperations.storeFile(context, FileOperations.SENT_PATH, content);
         if (f == null)

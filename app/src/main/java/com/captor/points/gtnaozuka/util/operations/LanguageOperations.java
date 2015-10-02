@@ -1,4 +1,4 @@
-package com.captor.points.gtnaozuka.util;
+package com.captor.points.gtnaozuka.util.operations;
 
 import android.content.Context;
 import android.content.res.Configuration;

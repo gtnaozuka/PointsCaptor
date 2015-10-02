@@ -1,4 +1,4 @@
-package com.captor.points.gtnaozuka.util;
+package com.captor.points.gtnaozuka.util.operations;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

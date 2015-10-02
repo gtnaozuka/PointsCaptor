@@ -7,12 +7,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.captor.points.gtnaozuka.fragment.DistanceFragment;
 import com.captor.points.gtnaozuka.fragment.TimeFragment;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class CaptureTypeAdapter extends FragmentStatePagerAdapter {
 
     private CharSequence titles[];
     private int num;
 
-    public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int num) {
+    public CaptureTypeAdapter(FragmentManager fm, CharSequence titles[], int num) {
         super(fm);
 
         this.titles = titles;

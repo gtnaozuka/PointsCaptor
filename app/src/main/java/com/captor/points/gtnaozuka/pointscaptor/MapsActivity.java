@@ -13,8 +13,8 @@ import com.captor.points.gtnaozuka.dialog.MapActionsDialog;
 import com.captor.points.gtnaozuka.dialog.MapTypeDialog;
 import com.captor.points.gtnaozuka.entity.Location;
 import com.captor.points.gtnaozuka.util.DisplayToast;
-import com.captor.points.gtnaozuka.util.FileOperations;
-import com.captor.points.gtnaozuka.util.Values;
+import com.captor.points.gtnaozuka.util.operations.FileOperations;
+import com.captor.points.gtnaozuka.util.Constants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -65,11 +65,11 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
         });
 
         Intent intent = getIntent();
-        Integer status = intent.getIntExtra(Values.STATUS_MSG, 0);
-        if (status.equals(Values.NOT_STARTED)) {
-            setCameraPosition((Location) intent.getParcelableExtra(Values.CURRENT_LOCATION_MSG));
+        Integer status = intent.getIntExtra(Constants.STATUS_MSG, 0);
+        if (status.equals(Constants.NOT_STARTED)) {
+            setCameraPosition((Location) intent.getParcelableExtra(Constants.CURRENT_LOCATION_MSG));
         } else {
-            ArrayList<Location> dataLocation = intent.getParcelableArrayListExtra(Values.DATA_LOCATION_MSG);
+            ArrayList<Location> dataLocation = intent.getParcelableArrayListExtra(Constants.DATA_LOCATION_MSG);
 
             addMarker(dataLocation.get(0), getResources().getString(R.string.start));
 
@@ -84,7 +84,7 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
             map.addPolyline(plOptions);
 
             Location l = dataLocation.get(dataLocation.size() - 1);
-            if (status.equals(Values.FINISHED))
+            if (status.equals(Constants.FINISHED))
                 addMarker(l, getResources().getString(R.string.finish));
             setCameraPosition(l);
         }

@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.pointscaptor.R;
-import com.captor.points.gtnaozuka.util.Values;
+import com.captor.points.gtnaozuka.util.Constants;
 
 import java.util.ArrayList;
 
@@ -40,8 +40,8 @@ public class CapturedPointsFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            dataPoint = bundle.getParcelableArrayList(Values.DATA_POINT_MSG);
-            dataLocation = bundle.getParcelableArrayList(Values.DATA_LOCATION_MSG);
+            dataPoint = bundle.getParcelableArrayList(Constants.DATA_POINT_MSG);
+            dataLocation = bundle.getParcelableArrayList(Constants.DATA_LOCATION_MSG);
             createTable();
         }
 

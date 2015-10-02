@@ -114,4 +114,15 @@
     <string name="fragment_default_capture">DefaultCaptureFragment</string>
     <string name="fragment_custom_capture">CustomCaptureFragment</string>
     <string name="fragment_captured_points">CapturedPointsFragment</string>
+    <string name="fragment_file_manager">FileManagerFragment</string>
+
+    <string name="no_file_found">No file found</string>
+    <string name="delete_file">Delete</string>
+    <string name="deleted_successfully">File deleted successfully</string>
+    <string name="data">Data</string>
+    <string name="photos">Photos</string>
+    <string name="image_display">Image Display</string>
+    <string name="close">Close</string>
+
+    <string name="imageview_description">Image Thumbnail</string>
 </resources>

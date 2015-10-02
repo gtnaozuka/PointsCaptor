@@ -1,4 +1,4 @@
-package com.captor.points.gtnaozuka.util;
+package com.captor.points.gtnaozuka.util.operations;
 
 import android.content.Context;
 
@@ -65,6 +65,38 @@ public class DataOperations {
         return str;
     }
 
+    public static ArrayList<Point> convertStringToPoints(ArrayList<String> strPoint) {
+        ArrayList<Point> points = new ArrayList<>();
+
+        for (int i = 1; i < strPoint.size(); i++) {
+            String[] values = strPoint.get(i).split("\t\t\t");
+
+            Point p = new Point();
+            p.setX(Double.parseDouble(values[1]));
+            p.setY(Double.parseDouble(values[2]));
+
+            points.add(p);
+        }
+
+        return points;
+    }
+
+    public static ArrayList<Location> convertStringToLocations(ArrayList<String> strLocation) {
+        ArrayList<Location> locations = new ArrayList<>();
+
+        for (int i = 1; i < strLocation.size(); i++) {
+            String[] values = strLocation.get(i).split("\t\t\t");
+
+            Location l = new Location();
+            l.setLatitude(Double.parseDouble(values[1]));
+            l.setLongitude(Double.parseDouble(values[2]));
+
+            locations.add(l);
+        }
+
+        return locations;
+    }
+
     public static ArrayList<Location> removeRepeatedLocations(ArrayList<Location> data) {
         LinkedHashSet<Location> set = new LinkedHashSet<>(data);
         return new ArrayList<>(set);
@@ -73,5 +105,13 @@ public class DataOperations {
     public static ArrayList<Point> removeRepeatedPoints(ArrayList<Point> data) {
         LinkedHashSet<Point> set = new LinkedHashSet<>(data);
         return new ArrayList<>(set);
+    }
+
+    public static String[] reverse(String[] strings) {
+        String[] newStrings = new String[strings.length];
+        for (int i = 0; i < strings.length; i++) {
+            newStrings[i] = strings[strings.length - i - 1];
+        }
+        return newStrings;
     }
 }

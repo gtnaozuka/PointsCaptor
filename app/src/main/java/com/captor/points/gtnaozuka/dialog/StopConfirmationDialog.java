@@ -8,7 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.captor.points.gtnaozuka.pointscaptor.R;
-import com.captor.points.gtnaozuka.util.Values;
+import com.captor.points.gtnaozuka.util.Constants;
 
 public class StopConfirmationDialog extends DialogFragment {
 
@@ -32,7 +32,7 @@ public class StopConfirmationDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        this.position = getArguments().getInt(Values.POSITION_MSG);
+        this.position = getArguments().getInt(Constants.POSITION_MSG);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.drawable.ic_action_warning);

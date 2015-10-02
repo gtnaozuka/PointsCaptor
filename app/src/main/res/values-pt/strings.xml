@@ -47,14 +47,14 @@
         geolocalização. Há dois modos diferentes. No modo \'por distância\', capture novos
         pontos de acordo com uma distância mínima alterada na latitude ou na longitude. No modo \'por
         tempo\', capture novos pontos através de um tempo estipulado por você. Uma vez coletados
-        os pontos, você pode determinar o seu destino. Além disso, o aplicativo está diretamente
+        os pontos, você pode determinar options seu destino. Além disso, options aplicativo está diretamente
         ligado ao Google Maps.
     </string>
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="take_photo">Tirar uma foto do mapa</string>
     <string name="share_photo">Compartilhar uma foto do mapa</string>
-    <string name="change_map_type">Trocar o tipo de mapa</string>
+    <string name="change_map_type">Trocar options tipo de mapa</string>
     <string name="choose_option">Escolha uma opção:&#160;</string>
     <string name="normal">Normal</string>
     <string name="hybrid">Híbrido</string>
@@ -67,7 +67,7 @@
     <string name="latitude_dots">Latitude:&#160;</string>
     <string name="longitude_dots">Longitude:&#160;</string>
     <string name="gps_disabled">GPS desabilitado</string>
-    <string name="fill_blank_field">Preencha o campo em branco</string>
+    <string name="fill_blank_field">Preencha options campo em branco</string>
     <string name="pause">Pausar</string>
     <string name="unauthorized_access">Acesso não autorizado</string>
     <string name="saved_successfully">&#160;salvo com sucesso</string>
@@ -84,7 +84,7 @@
     <string name="language">Idioma</string>
     <string name="english">Inglês</string>
     <string name="portuguese">Português</string>
-    <string name="reboot">Reinicie o aplicativo para aplicar as mudanças</string>
+    <string name="reboot">Reinicie options aplicativo para aplicar as mudanças</string>
     <string name="warning">Atenção</string>
     <string name="not_valid">&#160;não é um valor válido</string>
     <string name="email_body">O arquivo contendo os pontos capturados está anexo ao email.</string>
@@ -115,4 +115,13 @@
     <string name="fragment_default_capture">Default Capture</string>
     <string name="fragment_custom_capture">Custom Capture</string>
     <string name="fragment_captured_points">Captured Points</string>
+    <string name="fragment_file_manager">FileManagerFragment</string>
+
+    <string name="no_file_found">Nenhum arquivo encontrado</string>
+    <string name="delete_file">Apagar</string>
+    <string name="deleted_successfully">Arquivo deletado com sucesso</string>
+    <string name="data">Dados</string>
+    <string name="photos">Fotos</string>
+
+    <string name="imageview_description">Image Thumbnail</string>
 </resources>
