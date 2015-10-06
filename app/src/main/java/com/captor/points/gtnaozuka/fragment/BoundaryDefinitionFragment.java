@@ -1,46 +1,51 @@
 package com.captor.points.gtnaozuka.fragment;
 
 import android.app.Activity;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.captor.points.gtnaozuka.adapter.DataAdapter;
-import com.captor.points.gtnaozuka.entity.DividerItemDecoration;
-import com.captor.points.gtnaozuka.entity.Location;
-import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.pointscaptor.R;
-import com.captor.points.gtnaozuka.util.operations.DataOperations;
-import com.captor.points.gtnaozuka.util.operations.FileOperations;
-
-import java.io.File;
-import java.util.ArrayList;
+import com.captor.points.gtnaozuka.util.Constants;
+import com.captor.points.gtnaozuka.util.DisplayToast;
+import com.captor.points.gtnaozuka.util.OpenGLSurfaceView;
+import com.captor.points.gtnaozuka.util.Versions;
 
 public class BoundaryDefinitionFragment extends Fragment {
 
     private AppCompatActivity context;
-    private RecyclerView recyclerView;
-    private TextView emptyView;
 
-    private ArrayList<Location> dataLocation;
-    private ArrayList<Point> dataPoint;
-    private String currentFile, currentFilePath;
+    private float[] dataPoint;
+    private GLSurfaceView glSurfaceView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_boundary_definition, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        /*context.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        context.getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
+        super.onCreate(savedInstanceState);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_view);
-        updateFileList();
+        if (!Versions.hasGLES20(context)) {
+            new Handler().post(new DisplayToast(context, getResources().getString(R.string.opengl_not_supported)));
+        }
+    }
 
-        return rootView;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            dataPoint = bundle.getFloatArray(Constants.DATA_POINT_MSG);
+        }
+
+        glSurfaceView = new OpenGLSurfaceView(context, dataPoint);
+        return glSurfaceView;
     }
 
     @Override
@@ -54,46 +59,15 @@ public class BoundaryDefinitionFragment extends Fragment {
         super.onDetach();
     }
 
-    private void updateFileList() {
-        final String[] filenames = FileOperations.listAllFiles(context, FileOperations.FILES_PATH, "dat");
-        if (filenames == null || filenames.length == 0) {
-            recyclerView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-        } else {
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-            RecyclerView.Adapter adapter = new DataAdapter(context, filenames);
-            RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(context, LinearLayoutManager.VERTICAL);
-
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
-            recyclerView.addItemDecoration(itemDecoration);
-
-            ((DataAdapter) adapter).setOnItemClickListener(new DataAdapter.ClickListener() {
-                @Override
-                public void onItemClick(int position, View v) {
-                    currentFile = filenames[position];
-                    currentFilePath = FileOperations.FILES_PATH + File.separator + currentFile;
-
-                    openDatFile();
-                }
-            });
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        glSurfaceView.onResume();
     }
 
-    private void openDatFile() {
-        ArrayList<String> content = FileOperations.read(FileOperations.FILES_PATH, currentFile);
-
-        int middle = content.indexOf("----------");
-        ArrayList<String> strLocation = new ArrayList<>(content.subList(0, middle));
-        ArrayList<String> strPoint = new ArrayList<>(content.subList(middle + 1, content.size()));
-
-        dataLocation = DataOperations.convertStringToLocations(strLocation);
-        dataPoint = DataOperations.convertStringToPoints(strPoint);
-
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        glSurfaceView.onPause();
     }
 }

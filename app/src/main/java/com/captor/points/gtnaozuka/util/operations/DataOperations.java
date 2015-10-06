@@ -97,6 +97,91 @@ public class DataOperations {
         return locations;
     }
 
+    /*public static double[] convertStringToDoubleArray(ArrayList<String> strPoint) {
+        double[] points = new double[3 * (strPoint.size() - 1)];
+
+        for (int i = 1; i < strPoint.size(); i++) {
+            String[] values = strPoint.get(i).split("\t\t\t");
+
+            int index = 3 * (i - 1);
+            points[index] = Double.parseDouble(values[1]);
+            points[index + 1] = Double.parseDouble(values[2]);
+            points[index + 2] = 0.0;
+        }
+
+        return points;
+    }*/
+
+    public static float[] convertStringToFloatArray(ArrayList<String> strPoint) {
+        float[] points = new float[3 * (strPoint.size() - 1)];
+
+        for (int i = 1; i < strPoint.size(); i++) {
+            String[] values = strPoint.get(i).split("\t\t\t");
+
+            int index = 3 * (i - 1);
+            points[index] = -Float.parseFloat(values[1]);
+            points[index + 1] = Float.parseFloat(values[2]);
+            points[index + 2] = 0.0f;
+        }
+
+        return points;
+    }
+
+    public static float[] centralize(float[] vertices) {
+        float[] center = calculateCenter(vertices);
+
+        for (int i = 0; i < vertices.length; i += 3) {
+            vertices[i] -= center[0];
+            vertices[i + 1] -= center[1];
+        }
+
+        return vertices;
+    }
+
+    private static float[] calculateCenter(float[] vertices) {
+        float sumX = 0.0f, sumY = 0.0f;
+
+        for (int i = 0; i < vertices.length; i += 3) {
+            sumX += vertices[i];
+            sumY += vertices[i + 1];
+        }
+
+        float length = (float) vertices.length / 3.0f;
+        return new float[]{sumX / length, sumY / length};
+    }
+
+    public static float[] calculateTransformedVertices(float[] mvpMatrix, float[] vertices) {
+        float[] transformedVertices = new float[vertices.length];
+
+        for (int i = 0; i < vertices.length; i += 3) {
+            transformedVertices[i] = mvpMatrix[0] * vertices[i] + mvpMatrix[4] * vertices[i + 1] +
+                    mvpMatrix[8] * vertices[i + 2] + mvpMatrix[12];
+            transformedVertices[i + 1] = mvpMatrix[1] * vertices[i] + mvpMatrix[5] * vertices[i + 1] +
+                    mvpMatrix[9] * vertices[i + 2] + mvpMatrix[13];
+            transformedVertices[i + 2] = mvpMatrix[2] * vertices[i] + mvpMatrix[6] * vertices[i + 1] +
+                    mvpMatrix[10] * vertices[i + 2] + mvpMatrix[14];
+        }
+
+        return transformedVertices;
+    }
+
+    public static float[] calculateGeometrySize(float[] vertices) {
+        float minX = vertices[0], maxX = vertices[0], minY = vertices[1], maxY = vertices[1];
+
+        for (int i = 3; i < vertices.length; i += 3) {
+            minX = Math.min(minX, vertices[i]);
+            maxX = Math.max(maxX, vertices[i]);
+            minY = Math.min(minY, vertices[i + 1]);
+            maxY = Math.max(maxY, vertices[i + 1]);
+        }
+
+        return new float[]{maxX - minX, maxY - minY};
+    }
+
+    public static float calculateDistance(float a, float b, float x, float y) {
+        return (float) Math.sqrt(Math.pow(x - a, 2.0f) + Math.pow(y - b, 2.0f));
+    }
+
     public static ArrayList<Location> removeRepeatedLocations(ArrayList<Location> data) {
         LinkedHashSet<Location> set = new LinkedHashSet<>(data);
         return new ArrayList<>(set);

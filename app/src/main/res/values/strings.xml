@@ -115,6 +115,7 @@
     <string name="fragment_custom_capture">CustomCaptureFragment</string>
     <string name="fragment_captured_points">CapturedPointsFragment</string>
     <string name="fragment_file_manager">FileManagerFragment</string>
+    <string name="fragment_file_selection">FileSelectionFragment</string>
     <string name="fragment_boundary_definition">BoundaryDefinitionFragment</string>
 
     <string name="no_file_found">No file found</string>
@@ -126,4 +127,5 @@
     <string name="close">Close</string>
 
     <string name="imageview_description">Image Thumbnail</string>
+    <string name="opengl_not_supported">OpenGL ES 2.0 not supported</string>
 </resources>
