@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.captor.points.gtnaozuka.adapter.DataAdapter;
 import com.captor.points.gtnaozuka.entity.DividerItemDecoration;
+import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.pointscaptor.R;
 import com.captor.points.gtnaozuka.util.Constants;
 import com.captor.points.gtnaozuka.util.operations.DataOperations;
@@ -27,7 +28,7 @@ public class FileSelectionFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView emptyView;
 
-    private float[] dataPoint;
+    private ArrayList<Point> dataPoint;
     private String currentFile;
 
     @Override
@@ -53,7 +54,7 @@ public class FileSelectionFragment extends Fragment {
     }
 
     private void updateFileList() {
-        final String[] filenames = FileOperations.listAllFiles(context, FileOperations.FILES_PATH, "dat");
+        final String[] filenames = FileOperations.listAllFiles(context, FileOperations.DATA_PATH);
         if (filenames == null || filenames.length == 0) {
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
@@ -62,7 +63,7 @@ public class FileSelectionFragment extends Fragment {
             emptyView.setVisibility(View.GONE);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-            RecyclerView.Adapter adapter = new DataAdapter(context, filenames);
+            RecyclerView.Adapter adapter = new DataAdapter(context, FileOperations.splitAttrs(filenames));
             RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(context, LinearLayoutManager.VERTICAL);
 
             recyclerView.setHasFixedSize(true);
@@ -74,14 +75,14 @@ public class FileSelectionFragment extends Fragment {
                 @Override
                 public void onItemClick(int position, View v) {
                     currentFile = filenames[position];
-                    ArrayList<String> content = FileOperations.read(FileOperations.FILES_PATH, currentFile);
+                    ArrayList<String> content = FileOperations.read(FileOperations.DATA_PATH, currentFile);
 
                     int middle = content.indexOf("----------");
                     ArrayList<String> strPoint = new ArrayList<>(content.subList(middle + 1, content.size()));
-                    dataPoint = DataOperations.centralize(DataOperations.convertStringToFloatArray(strPoint));
+                    dataPoint = DataOperations.convertStringToPoints(strPoint);
 
                     Bundle bundle = new Bundle();
-                    bundle.putFloatArray(Constants.DATA_POINT_MSG, dataPoint);
+                    bundle.putParcelableArrayList(Constants.DATA_POINT_MSG, dataPoint);
 
                     FragmentOperations.newFragment(context, new BoundaryDefinitionFragment(), bundle, getResources().getString(R.string.fragment_boundary_definition));
                 }

@@ -117,7 +117,7 @@ public class MapsActivity extends AppCompatActivity implements MapActionsDialog.
         GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
             @Override
             public void onSnapshotReady(Bitmap snapshot) {
-                File f = FileOperations.storePhoto(MapsActivity.this, FileOperations.FILES_PATH, snapshot);
+                File f = FileOperations.storePhoto(MapsActivity.this, FileOperations.PHOTOS_PATH, snapshot);
                 if (f == null)
                     return;
 

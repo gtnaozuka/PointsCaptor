@@ -32,7 +32,7 @@ public class DiscardConfirmationDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setIcon(R.drawable.ic_action_warning);
+        builder.setIcon(R.drawable.dialog_warning);
         builder.setTitle(R.string.warning);
         builder.setMessage(R.string.discard_confirmation);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {

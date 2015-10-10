@@ -32,7 +32,7 @@ public class FullScreenViewActivity extends FragmentActivity implements View.OnC
         final int longest = (height > width ? height : width) / 2;
 
         ImageCache.ImageCacheParams cacheParams =
-                new ImageCache.ImageCacheParams(this, FileOperations.IMAGES_CACHE_DIR);
+                new ImageCache.ImageCacheParams(this, FileOperations.IMAGES_CACHE_FOLDER);
         cacheParams.setMemCacheSizePercent(0.25f);
 
         imageResizer = new ImageResizer(this, longest);

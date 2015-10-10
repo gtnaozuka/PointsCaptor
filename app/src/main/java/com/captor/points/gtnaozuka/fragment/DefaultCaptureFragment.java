@@ -113,7 +113,7 @@ public class DefaultCaptureFragment extends CaptureFragment {
                 @Override
                 public void run() {
                     ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.btnPlay);
-                    imgButton.setImageResource(R.drawable.ic_action_pause);
+                    imgButton.setImageResource(R.drawable.btn_pause);
                     imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
                     imgButton.setEnabled(true);
                     imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
@@ -127,7 +127,7 @@ public class DefaultCaptureFragment extends CaptureFragment {
                 @Override
                 public void run() {
                     ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.btnPlay);
-                    imgButton.setImageResource(R.drawable.ic_action_pause);
+                    imgButton.setImageResource(R.drawable.btn_pause);
                     imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
                     imgButton.setEnabled(false);
                 }
@@ -147,7 +147,7 @@ public class DefaultCaptureFragment extends CaptureFragment {
             @Override
             public void run() {
                 ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.btnPlay);
-                imgButton.setImageResource(R.drawable.ic_action_play);
+                imgButton.setImageResource(R.drawable.btn_play);
                 imgButton = (ImageButton) rootView.findViewById(R.id.btnStop);
                 imgButton.setEnabled(false);
                 imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
@@ -165,7 +165,7 @@ public class DefaultCaptureFragment extends CaptureFragment {
             @Override
             public void run() {
                 ImageButton imgButton = (ImageButton) rootView.findViewById(R.id.btnPlay);
-                imgButton.setImageResource(R.drawable.ic_action_play);
+                imgButton.setImageResource(R.drawable.btn_play);
                 imgButton = (ImageButton) rootView.findViewById(R.id.mapsButton);
                 imgButton.setEnabled(enabled);
             }

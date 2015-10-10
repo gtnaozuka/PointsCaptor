@@ -112,19 +112,18 @@ public class DataOperations {
         return points;
     }*/
 
-    public static float[] convertStringToFloatArray(ArrayList<String> strPoint) {
-        float[] points = new float[3 * (strPoint.size() - 1)];
+    public static float[] convertPointsToFloatArray(ArrayList<Point> points) {
+        float[] vertices = new float[3 * points.size()];
 
-        for (int i = 1; i < strPoint.size(); i++) {
-            String[] values = strPoint.get(i).split("\t\t\t");
+        for (int i = 0; i < vertices.length; i += 3) {
+            Point p = points.get(i / 3);
 
-            int index = 3 * (i - 1);
-            points[index] = -Float.parseFloat(values[1]);
-            points[index + 1] = Float.parseFloat(values[2]);
-            points[index + 2] = 0.0f;
+            vertices[i] = (float) -p.getX();
+            vertices[i + 1] = (float) p.getY();
+            vertices[i + 2] = 0.0f;
         }
 
-        return points;
+        return vertices;
     }
 
     public static float[] centralize(float[] vertices) {
@@ -190,13 +189,5 @@ public class DataOperations {
     public static ArrayList<Point> removeRepeatedPoints(ArrayList<Point> data) {
         LinkedHashSet<Point> set = new LinkedHashSet<>(data);
         return new ArrayList<>(set);
-    }
-
-    public static String[] reverse(String[] strings) {
-        String[] newStrings = new String[strings.length];
-        for (int i = 0; i < strings.length; i++) {
-            newStrings[i] = strings[strings.length - i - 1];
-        }
-        return newStrings;
     }
 }

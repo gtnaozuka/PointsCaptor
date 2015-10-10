@@ -24,13 +24,16 @@ public class OpenGLRenderer implements Renderer {
     private volatile float yOffset;
     private volatile float scaleFactor;
 
+    private static final float[] COLOR_PRIMARY = {0.506f, 0.78f, 0.518f, 1.0f};
+    private static final float[] COLOR_ACCENT = {1.0f, 0.596f, 0.0f, 1.0f};
+
     public OpenGLRenderer(float[] vertices) {
         this.vertices = vertices;
     }
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
-        GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        GLES20.glClearColor(0.961f, 0.961f, 0.961f, 1.0f);
 
         geometrySize = DataOperations.calculateGeometrySize(vertices);
         boundaries = new ArrayList<>();
@@ -41,7 +44,7 @@ public class OpenGLRenderer implements Renderer {
             vertex[1] = vertices[i + 1];
             vertex[2] = vertices[i + 2];
 
-            Boundary b = new Boundary(vertex, new float[]{0.0f, 1.0f, 0.0f, 1.0f});
+            Boundary b = new Boundary(vertex, COLOR_PRIMARY);
             boundaries.add(b);
         }
 
@@ -51,15 +54,7 @@ public class OpenGLRenderer implements Renderer {
         translationMatrix = new float[16];
         scaleMatrix = new float[16];
 
-        xOffset = 0.0f;
-        yOffset = 0.0f;
-
-        float xScaleFactor = 1.0f / geometrySize[0];
-        float yScaleFactor = 1.0f / geometrySize[1];
-        if (xScaleFactor < yScaleFactor)
-            scaleFactor = xScaleFactor;
-        else
-            scaleFactor = yScaleFactor;
+        fitGeometry();
     }
 
     @Override
@@ -111,11 +106,23 @@ public class OpenGLRenderer implements Renderer {
     }
 
     public void changeColor(int i) {
-        if (Arrays.equals(boundaries.get(i).getColors(), new float[]{0.0f, 1.0f, 0.0f, 1.0f})) {
-            boundaries.get(i).setColors(new float[]{1.0f, 0.0f, 0.0f, 1.0f});
+        if (Arrays.equals(boundaries.get(i).getColors(), COLOR_PRIMARY)) {
+            boundaries.get(i).setColors(COLOR_ACCENT);
         } else {
-            boundaries.get(i).setColors(new float[]{0.0f, 1.0f, 0.0f, 1.0f});
+            boundaries.get(i).setColors(COLOR_PRIMARY);
         }
+    }
+
+    public void fitGeometry() {
+        xOffset = 0.0f;
+        yOffset = 0.0f;
+
+        float xScaleFactor = 1.0f / geometrySize[0];
+        float yScaleFactor = 1.0f / geometrySize[1];
+        if (xScaleFactor < yScaleFactor)
+            scaleFactor = xScaleFactor;
+        else
+            scaleFactor = yScaleFactor;
     }
 
     public float getxOffset() {

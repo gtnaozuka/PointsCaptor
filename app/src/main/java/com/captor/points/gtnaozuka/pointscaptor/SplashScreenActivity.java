@@ -25,6 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         LanguageOperations.loadLanguage(this, sharedPref.getString("Language", "en"));
 
         FileOperations.definePaths(getPackageName());
+        FileOperations.delete(new File(FileOperations.CACHE_PATH));
         FileOperations.delete(new File(FileOperations.SENT_PATH));
 
         new Handler().postDelayed(new Runnable() {

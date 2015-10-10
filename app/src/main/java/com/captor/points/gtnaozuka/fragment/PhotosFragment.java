@@ -3,9 +3,13 @@ package com.captor.points.gtnaozuka.fragment;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.DialogFragment;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +23,9 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.captor.points.gtnaozuka.adapter.PhotosAdapter;
+import com.captor.points.gtnaozuka.dialog.DeleteConfirmationDialog;
+import com.captor.points.gtnaozuka.dialog.PhotosDialog;
+import com.captor.points.gtnaozuka.util.DisplayToast;
 import com.captor.points.gtnaozuka.util.image.ImageCache;
 import com.captor.points.gtnaozuka.util.image.ImageResizer;
 import com.captor.points.gtnaozuka.util.Versions;
@@ -28,8 +35,11 @@ import com.captor.points.gtnaozuka.pointscaptor.R;
 import com.captor.points.gtnaozuka.util.Constants;
 import com.captor.points.gtnaozuka.util.operations.FileOperations;
 
+import java.io.File;
+
 public class PhotosFragment extends Fragment implements AdapterView.OnItemClickListener,
-        AbsListView.OnScrollListener, ViewTreeObserver.OnGlobalLayoutListener {
+        AbsListView.OnScrollListener, ViewTreeObserver.OnGlobalLayoutListener,
+        AdapterView.OnItemLongClickListener {
 
     private GridView gridView;
     private TextView emptyView;
@@ -41,6 +51,8 @@ public class PhotosFragment extends Fragment implements AdapterView.OnItemClickL
     private PhotosAdapter adapter;
     private ImageResizer imageResizer;
     private String[] photos;
+
+    private String currentFilePath;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,7 +77,7 @@ public class PhotosFragment extends Fragment implements AdapterView.OnItemClickL
     }
 
     private void updatePhotoList() {
-        photos = FileOperations.listAllFiles(context, FileOperations.FILES_PATH, "png");
+        photos = FileOperations.listAllFiles(context, FileOperations.PHOTOS_PATH);
         if (photos == null || photos.length == 0) {
             gridView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
@@ -77,7 +89,7 @@ public class PhotosFragment extends Fragment implements AdapterView.OnItemClickL
             imageThumbSpacing = getResources().getDimensionPixelSize(R.dimen.image_thumbnail_spacing);
 
             ImageCache.ImageCacheParams cacheParams =
-                    new ImageCache.ImageCacheParams(getActivity(), FileOperations.THUMBS_CACHE_DIR);
+                    new ImageCache.ImageCacheParams(getActivity(), FileOperations.THUMBS_CACHE_FOLDER);
             cacheParams.setMemCacheSizePercent(0.25f);
 
             imageResizer = new ImageResizer(getActivity(), imageThumbSize);
@@ -90,28 +102,35 @@ public class PhotosFragment extends Fragment implements AdapterView.OnItemClickL
             gridView.setOnItemClickListener(this);
             gridView.setOnScrollListener(this);
             gridView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+            gridView.setOnItemLongClickListener(this);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        imageResizer.setExitTasksEarly(false);
-        adapter.notifyDataSetChanged();
+        if (photos != null && photos.length != 0) {
+            imageResizer.setExitTasksEarly(false);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        imageResizer.setPauseWork(false);
-        imageResizer.setExitTasksEarly(true);
-        imageResizer.flushCache();
+        if (photos != null && photos.length != 0) {
+            imageResizer.setPauseWork(false);
+            imageResizer.setExitTasksEarly(true);
+            imageResizer.flushCache();
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        imageResizer.closeCache();
+        if (photos != null && photos.length != 0) {
+            imageResizer.closeCache();
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -168,5 +187,46 @@ public class PhotosFragment extends Fragment implements AdapterView.OnItemClickL
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        currentFilePath = FileOperations.PHOTOS_PATH + File.separator + photos[(int) id];
+
+        DialogFragment dialog = new PhotosDialog();
+        dialog.show(context.getFragmentManager(), "PhotosDialog");
+        return true;
+    }
+
+    public void sharePhoto() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setData(Uri.parse("mailto:"));
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.photo_email_subject));
+        intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.photo_email_body));
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(currentFilePath)));
+
+        try {
+            startActivity(Intent.createChooser(intent, getResources().getString(R.string.choose_option)));
+        } catch (ActivityNotFoundException ex) {
+            new Handler().post(new DisplayToast(context, getResources().getString(R.string.no_email_client)));
+        }
+    }
+
+    public void showDeleteDialog(DialogFragment dialog) {
+        dialog.dismiss();
+
+        DialogFragment newDialog = new DeleteConfirmationDialog();
+        Bundle dialogBundle = new Bundle();
+        dialogBundle.putInt(Constants.TYPE_MSG, Constants.PHOTO);
+        newDialog.setArguments(dialogBundle);
+        newDialog.show(context.getFragmentManager(), "DeleteConfirmationDialog");
+    }
+
+    public void deletePhoto() {
+        FileOperations.delete(new File(currentFilePath));
+
+        new Handler().post(new DisplayToast(context, getResources().getString(R.string.photo_deleted_successfully)));
+        updatePhotoList();
     }
 }

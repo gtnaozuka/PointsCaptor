@@ -7,15 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.captor.points.gtnaozuka.entity.DataItem;
 import com.captor.points.gtnaozuka.pointscaptor.R;
+
+import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
-    private String[] data;
+    private List<DataItem> data;
     private LayoutInflater inflater;
     private static ClickListener clickListener;
 
-    public DataAdapter(Context context, String[] data) {
+    public DataAdapter(Context context, List<DataItem> data) {
         this.inflater = LayoutInflater.from(context);
         this.data = data;
     }
@@ -28,12 +31,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.title.setText(data[position]);
+        DataItem current = data.get(position);
+        holder.title.setText(current.getTitle());
+        holder.date.setText(current.getDate());
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 
     public void setOnItemClickListener(ClickListener clickListener) {
@@ -41,11 +46,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView title;
+
+        private TextView title, date;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.title = (TextView) itemView.findViewById(R.id.title);
+            this.date = (TextView) itemView.findViewById(R.id.date);
             itemView.setOnClickListener(this);
         }
 

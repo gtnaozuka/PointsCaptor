@@ -65,10 +65,10 @@
                 android:layout_width="50dip"
                 android:layout_height="50dip"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/btn_oval"
+                android:background="@drawable/btn_selector"
                 android:contentDescription="@string/maps"
                 android:onClick="startMapsActivity"
-                android:src="@drawable/ic_action_map" />
+                android:src="@drawable/btn_map" />
 
             <Space
                 android:layout_width="5dp"
@@ -79,12 +79,12 @@
                 android:layout_width="135dip"
                 android:layout_height="135dip"
                 android:adjustViewBounds="true"
-                android:background="@drawable/btn_oval"
+                android:background="@drawable/btn_selector"
                 android:contentDescription="@string/play"
                 android:onClick="playRecord"
                 android:padding="20dip"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_play" />
+                android:src="@drawable/btn_play" />
 
             <Space
                 android:layout_width="5dp"
@@ -95,10 +95,10 @@
                 android:layout_width="50dip"
                 android:layout_height="50dip"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/btn_oval"
+                android:background="@drawable/btn_selector"
                 android:contentDescription="@string/stop"
                 android:onClick="stopRecord"
-                android:src="@drawable/ic_action_stop" />
+                android:src="@drawable/btn_stop" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -136,10 +136,10 @@
             android:layout_height="50dip"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_oval"
+            android:background="@drawable/btn_selector"
             android:contentDescription="@string/gps"
             android:onClick="turnGpsOn"
-            android:src="@drawable/ic_action_gps" />
+            android:src="@drawable/btn_gps" />
 
     </RelativeLayout>
 </LinearLayout>

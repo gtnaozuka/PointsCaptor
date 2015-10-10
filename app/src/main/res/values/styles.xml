@@ -19,9 +19,9 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
-    <style name="PhotoGridLayout">
+    <style name="GridViewStyle">
         <item name="android:drawSelectorOnTop">true</item>
-        <item name="android:listSelector">@drawable/photogrid_list_selector</item>
+        <item name="android:listSelector">@drawable/grid_view_selector</item>
     </style>
 
 </resources>

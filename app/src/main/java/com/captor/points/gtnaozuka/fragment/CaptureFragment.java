@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.captor.points.gtnaozuka.dialog.CapturedPointsDialog;
 import com.captor.points.gtnaozuka.dialog.DiscardConfirmationDialog;
+import com.captor.points.gtnaozuka.dialog.RemovalConfirmationDialog;
 import com.captor.points.gtnaozuka.entity.Location;
 import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.pointscaptor.MapsActivity;
@@ -129,18 +130,22 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
         startActivity(intent);
     }
 
+    public void showRemovalDialog() {
+        DialogFragment dialog = new RemovalConfirmationDialog();
+        dialog.show(context.getFragmentManager(), "RemovalConfirmationDialog");
+    }
+
     public void removeRepeatedData() {
-        //Criar um dialog de confirmacao
         dataLocation = DataOperations.removeRepeatedLocations(dataLocation);
         dataPoint = DataOperations.removeRepeatedPoints(dataPoint);
 
         new Handler().post(new DisplayToast(context, getResources().getString(R.string.removed_successfully)));
     }
 
-    public void storeInMemory() {
+    public void storeInMemory(String type) {
         String content = DataOperations.convertLocationsToString(context, dataLocation) + "----------\n" +
                 DataOperations.convertPointsToString(context, dataPoint);
-        File f = FileOperations.storeFile(context, FileOperations.FILES_PATH, content);
+        File f = FileOperations.storeFile(context, FileOperations.DATA_PATH, content, type);
         if (f == null)
             return;
 
@@ -148,10 +153,10 @@ public abstract class CaptureFragment extends Fragment implements LocationListen
                 "'" + getResources().getString(R.string.saved_successfully)));
     }
 
-    public void shareWithSomeone() {
+    public void shareWithSomeone(String type) {
         String content = DataOperations.convertLocationsToString(context, dataLocation) + "----------\n" +
                 DataOperations.convertPointsToString(context, dataPoint);
-        File f = FileOperations.storeFile(context, FileOperations.SENT_PATH, content);
+        File f = FileOperations.storeFile(context, FileOperations.SENT_PATH, content, type);
         if (f == null)
             return;
 

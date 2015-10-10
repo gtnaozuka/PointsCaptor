@@ -18,16 +18,18 @@ import android.widget.TextView;
 
 import com.captor.points.gtnaozuka.adapter.DataAdapter;
 import com.captor.points.gtnaozuka.dialog.DataDialog;
+import com.captor.points.gtnaozuka.dialog.DeleteConfirmationDialog;
+import com.captor.points.gtnaozuka.dialog.RemovalConfirmationDialog;
 import com.captor.points.gtnaozuka.entity.DividerItemDecoration;
 import com.captor.points.gtnaozuka.entity.Location;
 import com.captor.points.gtnaozuka.entity.Point;
 import com.captor.points.gtnaozuka.pointscaptor.MapsActivity;
 import com.captor.points.gtnaozuka.pointscaptor.R;
-import com.captor.points.gtnaozuka.util.operations.DataOperations;
+import com.captor.points.gtnaozuka.util.Constants;
 import com.captor.points.gtnaozuka.util.DisplayToast;
+import com.captor.points.gtnaozuka.util.operations.DataOperations;
 import com.captor.points.gtnaozuka.util.operations.FileOperations;
 import com.captor.points.gtnaozuka.util.operations.FragmentOperations;
-import com.captor.points.gtnaozuka.util.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class DataFragment extends Fragment {
     }
 
     private void updateFileList() {
-        final String[] filenames = FileOperations.listAllFiles(context, FileOperations.FILES_PATH, "dat");
+        final String[] filenames = FileOperations.listAllFiles(context, FileOperations.DATA_PATH);
         if (filenames == null || filenames.length == 0) {
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
@@ -80,7 +82,7 @@ public class DataFragment extends Fragment {
             emptyView.setVisibility(View.GONE);
 
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-            RecyclerView.Adapter adapter = new DataAdapter(context, filenames);
+            RecyclerView.Adapter adapter = new DataAdapter(context, FileOperations.splitAttrs(filenames));
             RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(context, LinearLayoutManager.VERTICAL);
 
             recyclerView.setHasFixedSize(true);
@@ -92,25 +94,21 @@ public class DataFragment extends Fragment {
                 @Override
                 public void onItemClick(int position, View v) {
                     currentFile = filenames[position];
-                    currentFilePath = FileOperations.FILES_PATH + File.separator + currentFile;
+                    currentFilePath = FileOperations.DATA_PATH + File.separator + currentFile;
 
-                    openDatFile();
+                    ArrayList<String> content = FileOperations.read(FileOperations.DATA_PATH, currentFile);
+
+                    int middle = content.indexOf("----------");
+                    ArrayList<String> strLocation = new ArrayList<>(content.subList(0, middle));
+                    ArrayList<String> strPoint = new ArrayList<>(content.subList(middle + 1, content.size()));
+
+                    dataLocation = DataOperations.convertStringToLocations(strLocation);
+                    dataPoint = DataOperations.convertStringToPoints(strPoint);
+
+                    showDialog();
                 }
             });
         }
-    }
-
-    private void openDatFile() {
-        ArrayList<String> content = FileOperations.read(FileOperations.FILES_PATH, currentFile);
-
-        int middle = content.indexOf("----------");
-        ArrayList<String> strLocation = new ArrayList<>(content.subList(0, middle));
-        ArrayList<String> strPoint = new ArrayList<>(content.subList(middle + 1, content.size()));
-
-        dataLocation = DataOperations.convertStringToLocations(strLocation);
-        dataPoint = DataOperations.convertStringToPoints(strPoint);
-
-        showDialog();
     }
 
     private void showDialog() {
@@ -136,10 +134,20 @@ public class DataFragment extends Fragment {
         startActivity(intent);
     }
 
+    public void showRemovalDialog() {
+        DialogFragment dialog = new RemovalConfirmationDialog();
+        dialog.show(context.getFragmentManager(), "RemovalConfirmationDialog");
+    }
+
     public void removeRepeatedData() {
-        //Criar um dialog de confirmacao
         dataLocation = DataOperations.removeRepeatedLocations(dataLocation);
         dataPoint = DataOperations.removeRepeatedPoints(dataPoint);
+
+        String content = DataOperations.convertLocationsToString(context, dataLocation) + "----------\n" +
+                DataOperations.convertPointsToString(context, dataPoint);
+        File f = FileOperations.editFile(currentFile, content);
+        if (f == null)
+            return;
 
         new Handler().post(new DisplayToast(context, getResources().getString(R.string.removed_successfully)));
     }
@@ -159,12 +167,20 @@ public class DataFragment extends Fragment {
         }
     }
 
-    public void deleteFile(DialogFragment dialog) {
+    public void showDeleteDialog(DialogFragment dialog) {
         dialog.dismiss();
 
+        DialogFragment newDialog = new DeleteConfirmationDialog();
+        Bundle dialogBundle = new Bundle();
+        dialogBundle.putInt(Constants.TYPE_MSG, Constants.DATA);
+        newDialog.setArguments(dialogBundle);
+        newDialog.show(context.getFragmentManager(), "DeleteConfirmationDialog");
+    }
+
+    public void deleteFile() {
         FileOperations.delete(new File(currentFilePath));
 
-        new Handler().post(new DisplayToast(context, getResources().getString(R.string.deleted_successfully)));
+        new Handler().post(new DisplayToast(context, getResources().getString(R.string.file_deleted_successfully)));
         updateFileList();
     }
 }

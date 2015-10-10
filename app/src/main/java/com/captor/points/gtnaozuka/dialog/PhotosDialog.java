@@ -9,30 +9,28 @@ import android.os.Bundle;
 
 import com.captor.points.gtnaozuka.pointscaptor.R;
 
-public class MapActionsDialog extends DialogFragment {
+public class PhotosDialog extends DialogFragment {
 
-    public interface MapActionsListener {
-        void changeMapType(DialogFragment dialog);
-
-        void takePhoto(DialogFragment dialog);
-
+    public interface PhotosListener {
         void sharePhoto(DialogFragment dialog);
+
+        void deletePhoto(DialogFragment dialog);
     }
 
-    private MapActionsListener maListener;
+    private PhotosListener pListener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            maListener = (MapActionsListener) activity;
+            pListener = (PhotosListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement MapActionsListener");
+            throw new ClassCastException(activity.toString() + " must implement PhotosListener");
         }
     }
 
     private String[] actions;
-    private static final int MAX_ACTIONS = 3;
+    private static final int MAX_ACTIONS = 2;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -44,13 +42,11 @@ public class MapActionsDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        maListener.changeMapType(MapActionsDialog.this);
+                        pListener.sharePhoto(PhotosDialog.this);
                         break;
                     case 1:
-                        maListener.takePhoto(MapActionsDialog.this);
+                        pListener.deletePhoto(PhotosDialog.this);
                         break;
-                    case 2:
-                        maListener.sharePhoto(MapActionsDialog.this);
                 }
             }
         });
@@ -59,8 +55,7 @@ public class MapActionsDialog extends DialogFragment {
 
     private void createOptions() {
         actions = new String[MAX_ACTIONS];
-        actions[0] = getResources().getString(R.string.change_map_type);
-        actions[1] = getResources().getString(R.string.take_photo);
-        actions[2] = getResources().getString(R.string.share_map_photo);
+        actions[0] = getResources().getString(R.string.share_photo);
+        actions[1] = getResources().getString(R.string.delete_photo);
     }
 }

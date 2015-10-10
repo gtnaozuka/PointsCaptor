@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.captor.points.gtnaozuka.entity.DividerItemDecoration;
 import com.captor.points.gtnaozuka.entity.NavigationDrawerItem;
 import com.captor.points.gtnaozuka.pointscaptor.R;
 import com.captor.points.gtnaozuka.adapter.NavigationDrawerAdapter;
@@ -28,6 +29,9 @@ public class DrawerFragment extends Fragment {
     private DrawerLayout drawerLayout;
     private View containerView;
     private static String[] titles = null;
+    private static int[] icons = {R.drawable.nav_item_default_capture, R.drawable.nav_item_custom_capture,
+            R.drawable.nav_item_boundary_definition, R.drawable.nav_item_mesh_generation,
+            R.drawable.nav_item_file_manager};
     private FragmentDrawerListener drawerListener;
 
     @Override
@@ -55,14 +59,15 @@ public class DrawerFragment extends Fragment {
             public void onLongClick(View view, int position) {
             }
         }));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
         return rootView;
     }
 
     private List<NavigationDrawerItem> getData() {
         List<NavigationDrawerItem> data = new ArrayList<>();
-        for (String title : titles) {
-            NavigationDrawerItem navItem = new NavigationDrawerItem(title);
+        for (int i = 0; i < titles.length; i++) {
+            NavigationDrawerItem navItem = new NavigationDrawerItem(titles[i], icons[i]);
             data.add(navItem);
         }
         return data;

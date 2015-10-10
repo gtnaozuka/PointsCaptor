@@ -88,7 +88,7 @@ public class PhotosAdapter extends BaseAdapter {
             imageView.setLayoutParams(imageViewLayoutParams);
         }
 
-        imageResizer.loadImage(FileOperations.FILES_PATH + File.separator + this.photos[position - numColumns], imageView);
+        imageResizer.loadImage(FileOperations.PHOTOS_PATH + File.separator + this.photos[position - numColumns], imageView);
         return imageView;
 
         /*if (convertView == null) {

@@ -3,15 +3,21 @@ package com.captor.points.gtnaozuka.util;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.support.v4.view.GestureDetectorCompat;
+import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
+import com.captor.points.gtnaozuka.fragment.BoundaryDefinitionFragment;
 import com.captor.points.gtnaozuka.util.operations.DataOperations;
+
+import java.util.ArrayList;
 
 public class OpenGLSurfaceView extends GLSurfaceView implements View.OnLayoutChangeListener {
 
+    private Context context;
+    private BoundaryDefinitionFragment bdf;
     private float[] vertices;
 
     private OpenGLRenderer renderer;
@@ -19,13 +25,19 @@ public class OpenGLSurfaceView extends GLSurfaceView implements View.OnLayoutCha
     private ScaleGestureDetector scaleDetector;
     private GestureDetectorCompat gestureDetector;
 
+    private ArrayList<Integer> selectedIndices;
+
     private static float X_TOUCH_SCALE_FACTOR, Y_TOUCH_SCALE_FACTOR, RATIO;
     private float previousX, previousY;
     private static final float ERROR_RADIUS = 0.1f;
 
-    public OpenGLSurfaceView(Context context, float[] vertices) {
-        super(context);
+    public OpenGLSurfaceView(Context context, AttributeSet attributes) {
+        super(context, attributes);
+        this.context = context;
+    }
 
+    public void init(BoundaryDefinitionFragment bdf, float[] vertices) {
+        this.bdf = bdf;
         this.vertices = vertices;
 
         renderer = new OpenGLRenderer(this.vertices);
@@ -37,6 +49,8 @@ public class OpenGLSurfaceView extends GLSurfaceView implements View.OnLayoutCha
         scaleDetector = new ScaleGestureDetector(context, new ScaleListener());
         gestureDetector = new GestureDetectorCompat(context, new GestureListener());
         this.addOnLayoutChangeListener(this);
+
+        selectedIndices = new ArrayList<>();
     }
 
     @Override
@@ -49,6 +63,7 @@ public class OpenGLSurfaceView extends GLSurfaceView implements View.OnLayoutCha
 
         switch (e.getAction()) {
             case MotionEvent.ACTION_MOVE:
+                bdf.getBtnFit().setVisibility(VISIBLE);
                 float dx = x - previousX;
                 float dy = y - previousY;
 
@@ -78,9 +93,14 @@ public class OpenGLSurfaceView extends GLSurfaceView implements View.OnLayoutCha
         this.removeOnLayoutChangeListener(this);
     }
 
+    public ArrayList<Integer> getSelectedIndices() {
+        return selectedIndices;
+    }
+
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
+            bdf.getBtnFit().setVisibility(VISIBLE);
             float scaleFactor = detector.getScaleFactor();
 
             renderer.setScaleFactor(renderer.getScaleFactor() * scaleFactor);
@@ -108,11 +128,28 @@ public class OpenGLSurfaceView extends GLSurfaceView implements View.OnLayoutCha
             }
 
             if (smallerDistance <= ERROR_RADIUS) {
+                if (selectedIndices.contains(Integer.valueOf(selectedIndex))) {
+                    bdf.getBtnInterpolate().setVisibility(INVISIBLE);
+                    selectedIndices.remove(Integer.valueOf(selectedIndex));
+                } else if (selectedIndices.size() == 4) {
+                    return false;
+                } else {
+                    selectedIndices.add(selectedIndex);
+                    if (selectedIndices.size() == 4) {
+                        bdf.getBtnInterpolate().setVisibility(VISIBLE);
+                    }
+                }
+
                 renderer.changeColor(selectedIndex);
                 requestRender();
             }
 
             return true;
         }
+    }
+
+    public void fitGeometry() {
+        renderer.fitGeometry();
+        requestRender();
     }
 }

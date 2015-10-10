@@ -14,14 +14,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.captor.points.gtnaozuka.dialog.BoundaryDialog;
 import com.captor.points.gtnaozuka.dialog.CapturedPointsDialog;
+import com.captor.points.gtnaozuka.dialog.DeleteConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.DiscardConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.DistanceDialog;
 import com.captor.points.gtnaozuka.dialog.DataDialog;
 import com.captor.points.gtnaozuka.dialog.InfoDialog;
 import com.captor.points.gtnaozuka.dialog.LanguageDialog;
+import com.captor.points.gtnaozuka.dialog.PhotosDialog;
+import com.captor.points.gtnaozuka.dialog.RemovalConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.StopConfirmationDialog;
 import com.captor.points.gtnaozuka.dialog.TimeDialog;
+import com.captor.points.gtnaozuka.fragment.BoundaryDefinitionFragment;
 import com.captor.points.gtnaozuka.fragment.FileSelectionFragment;
 import com.captor.points.gtnaozuka.fragment.CaptureTypeFragment;
 import com.captor.points.gtnaozuka.fragment.CustomCaptureFragment;
@@ -29,15 +34,20 @@ import com.captor.points.gtnaozuka.fragment.DataFragment;
 import com.captor.points.gtnaozuka.fragment.DefaultCaptureFragment;
 import com.captor.points.gtnaozuka.fragment.DrawerFragment;
 import com.captor.points.gtnaozuka.fragment.FileManagerFragment;
+import com.captor.points.gtnaozuka.fragment.PhotosFragment;
 import com.captor.points.gtnaozuka.util.DisplayToast;
 import com.captor.points.gtnaozuka.util.operations.FragmentOperations;
 import com.captor.points.gtnaozuka.util.Constants;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LanguageDialog.LanguageListener,
         DrawerFragment.FragmentDrawerListener, DistanceDialog.DistanceListener,
         TimeDialog.TimeListener, CapturedPointsDialog.CapturedPointsListener,
         DiscardConfirmationDialog.DiscardConfirmationListener,
-        StopConfirmationDialog.StopConfirmationListener, DataDialog.FileManagerListener {
+        StopConfirmationDialog.StopConfirmationListener, DataDialog.FileManagerListener,
+        BoundaryDialog.BoundaryListener, PhotosDialog.PhotosListener,
+        RemovalConfirmationDialog.RemovalConfirmationListener, DeleteConfirmationDialog.DeleteConfirmationListener {
 
     private Fragment fragment;
 
@@ -308,6 +318,16 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
         }
     }
 
+    public void fitGeometry(View view) {
+        BoundaryDefinitionFragment bdf = (BoundaryDefinitionFragment) fragment;
+        bdf.fitGeometry();
+    }
+
+    public void interpolate(View view) {
+        BoundaryDefinitionFragment bdf = (BoundaryDefinitionFragment) fragment;
+        bdf.interpolate();
+    }
+
     @Override
     public void viewCapturedPoints(DialogFragment dialog) {
         if (fragment instanceof DefaultCaptureFragment) {
@@ -346,15 +366,15 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
     public void removeRepeatedData(DialogFragment dialog) {
         if (fragment instanceof DefaultCaptureFragment) {
             DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
-            dcf.removeRepeatedData();
+            dcf.showRemovalDialog();
         } else if (fragment instanceof CustomCaptureFragment) {
             CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
-            ccf.removeRepeatedData();
+            ccf.showRemovalDialog();
         } else if (fragment instanceof FileManagerFragment) {
             Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
             if (child instanceof DataFragment) {
                 DataFragment df = (DataFragment) child;
-                df.removeRepeatedData();
+                df.showRemovalDialog();
             }
         }
     }
@@ -363,10 +383,10 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
     public void storeInMemory(DialogFragment dialog) {
         if (fragment instanceof DefaultCaptureFragment) {
             DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
-            dcf.storeInMemory();
+            dcf.storeInMemory(getString(R.string.nav_item_default_capture));
         } else if (fragment instanceof CustomCaptureFragment) {
             CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
-            ccf.storeInMemory();
+            ccf.storeInMemory(getString(R.string.nav_item_custom_capture));
         }
     }
 
@@ -374,10 +394,10 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
     public void shareWithSomeone(DialogFragment dialog) {
         if (fragment instanceof DefaultCaptureFragment) {
             DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
-            dcf.shareWithSomeone();
+            dcf.shareWithSomeone(getString(R.string.nav_item_default_capture));
         } else if (fragment instanceof CustomCaptureFragment) {
             CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
-            ccf.shareWithSomeone();
+            ccf.shareWithSomeone(getString(R.string.nav_item_custom_capture));
         } else if (fragment instanceof FileManagerFragment) {
             Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
             if (child instanceof DataFragment) {
@@ -389,11 +409,8 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
 
     @Override
     public void deleteFile(DialogFragment dialog) {
-        Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
-        if (child instanceof DataFragment) {
-            DataFragment df = (DataFragment) child;
-            df.deleteFile(dialog);
-        }
+        DataFragment df = (DataFragment) fragment.getChildFragmentManager().getFragments().get(0);
+        df.showDeleteDialog(dialog);
     }
 
     @Override
@@ -437,6 +454,55 @@ public class MainActivity extends AppCompatActivity implements LanguageDialog.La
         } else if (fragment instanceof CustomCaptureFragment) {
             CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
             ccf.onSCPositiveClick(position);
+        }
+    }
+
+    @Override
+    public void onBPositiveClick(DialogFragment dialog, int leftRight, int upperLower) {
+
+    }
+
+    @Override
+    public void sharePhoto(DialogFragment dialog) {
+        PhotosFragment pf = (PhotosFragment) fragment.getChildFragmentManager().getFragments().get(1);
+        pf.sharePhoto();
+    }
+
+    @Override
+    public void deletePhoto(DialogFragment dialog) {
+        PhotosFragment pf = (PhotosFragment) fragment.getChildFragmentManager().getFragments().get(1);
+        pf.showDeleteDialog(dialog);
+    }
+
+    @Override
+    public void onRCPositiveClick(DialogFragment dialog) {
+        if (fragment instanceof DefaultCaptureFragment) {
+            DefaultCaptureFragment dcf = (DefaultCaptureFragment) fragment;
+            dcf.removeRepeatedData();
+        } else if (fragment instanceof CustomCaptureFragment) {
+            CustomCaptureFragment ccf = (CustomCaptureFragment) fragment;
+            ccf.removeRepeatedData();
+        } else if (fragment instanceof FileManagerFragment) {
+            Fragment child = fragment.getChildFragmentManager().getFragments().get(0);
+            if (child instanceof DataFragment) {
+                DataFragment df = (DataFragment) child;
+                df.removeRepeatedData();
+            }
+        }
+    }
+
+    @Override
+    public void onDelCPositiveClick(DialogFragment dialog, int type) {
+        List<Fragment> children = fragment.getChildFragmentManager().getFragments();
+        switch (type) {
+            case Constants.DATA:
+                DataFragment df = (DataFragment) children.get(0);
+                df.deleteFile();
+                break;
+            case Constants.PHOTO:
+                PhotosFragment pf = (PhotosFragment) children.get(1);
+                pf.deletePhoto();
+                break;
         }
     }
 }

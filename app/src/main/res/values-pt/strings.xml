@@ -53,7 +53,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="take_photo">Tirar uma foto do mapa</string>
-    <string name="share_photo">Compartilhar uma foto do mapa</string>
+    <string name="share_map_photo">Compartilhar uma foto do mapa</string>
     <string name="change_map_type">Trocar options tipo de mapa</string>
     <string name="choose_option">Escolha uma opção:&#160;</string>
     <string name="normal">Normal</string>
@@ -121,10 +121,25 @@
 
     <string name="no_file_found">Nenhum arquivo encontrado</string>
     <string name="delete_file">Apagar</string>
-    <string name="deleted_successfully">Arquivo deletado com sucesso</string>
+    <string name="file_deleted_successfully">Arquivo deletado com sucesso</string>
     <string name="data">Dados</string>
     <string name="photos">Fotos</string>
 
     <string name="imageview_description">Image Thumbnail</string>
     <string name="opengl_not_supported">OpenGL ES 2.0 não suportado</string>
+    <string name="fit">Enquadrar</string>
+    <string name="interpolate">Interpolar</string>
+    <string name="refinement">Refinamento</string>
+    <string name="boundary_1">Fronteira 1</string>
+    <string name="boundary_2">Fronteira 2</string>
+
+    <string name="share_photo">Compartilhar</string>
+    <string name="photo_email_subject">Points Captor - Foto</string>
+    <string name="photo_email_body">A foto está anexa ao email.</string>
+    <string name="delete_photo">Apagar</string>
+    <string name="photo_deleted_successfully">Foto deletada com sucesso</string>
+    <string name="photo">Foto</string>
+    <string name="are_you_sure">Você tem certeza?</string>
+    <string name="file">Arquivo</string>
+    <string name="nav_drawer_item">Item</string>
 </resources>

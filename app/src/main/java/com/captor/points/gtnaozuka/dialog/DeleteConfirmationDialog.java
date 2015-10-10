@@ -10,37 +10,37 @@ import android.os.Bundle;
 import com.captor.points.gtnaozuka.pointscaptor.R;
 import com.captor.points.gtnaozuka.util.Constants;
 
-public class StopConfirmationDialog extends DialogFragment {
+public class DeleteConfirmationDialog extends DialogFragment {
 
-    private int position;
+    private int type;
 
-    public interface StopConfirmationListener {
-        void onSCPositiveClick(DialogFragment dialog, int position);
+    public interface DeleteConfirmationListener {
+        void onDelCPositiveClick(DialogFragment dialog, int type);
     }
 
-    private StopConfirmationListener scListener;
+    private DeleteConfirmationListener dcListener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            scListener = (StopConfirmationListener) activity;
+            dcListener = (DeleteConfirmationListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement StopConfirmationListener");
+            throw new ClassCastException(activity.toString() + " must implement DeleteConfirmationListener");
         }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        this.position = getArguments().getInt(Constants.POSITION_MSG);
+        this.type = getArguments().getInt(Constants.TYPE_MSG);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.drawable.dialog_warning);
         builder.setTitle(R.string.warning);
-        builder.setMessage(R.string.discard_confirmation);
+        builder.setMessage(R.string.are_you_sure);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                scListener.onSCPositiveClick(StopConfirmationDialog.this, position);
+                dcListener.onDelCPositiveClick(DeleteConfirmationDialog.this, type);
             }
         });
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

@@ -14,4 +14,5 @@ public class Constants {
 
     public static final int DISTANCE = 1, TIME = 2;
     public static final int NOT_STARTED = 1, STARTED = 2, FINISHED = 3;
+    public static final int DATA = 0, PHOTO = 1;
 }

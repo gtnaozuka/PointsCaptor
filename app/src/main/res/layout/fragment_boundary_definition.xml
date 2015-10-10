@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.captor.points.gtnaozuka.fragment.BoundaryDefinitionFragment">
+
+    <com.captor.points.gtnaozuka.util.OpenGLSurfaceView
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <ImageButton
+        android:id="@+id/fitButton"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_alignBottom="@+id/view"
+        android:layout_alignLeft="@+id/view"
+        android:layout_alignStart="@+id/view"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginStart="10dip"
+        android:background="@drawable/btn_selector"
+        android:contentDescription="@string/fit"
+        android:onClick="fitGeometry"
+        android:src="@drawable/btn_fit"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/interpolateButton"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_alignBottom="@+id/view"
+        android:layout_alignEnd="@+id/view"
+        android:layout_alignRight="@+id/view"
+        android:layout_marginBottom="10dip"
+        android:layout_marginEnd="10dip"
+        android:layout_marginRight="10dip"
+        android:background="@drawable/btn_selector"
+        android:contentDescription="@string/interpolate"
+        android:onClick="interpolate"
+        android:src="@drawable/btn_interpolate"
+        android:visibility="invisible" />
+</RelativeLayout>

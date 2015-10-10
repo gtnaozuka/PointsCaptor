@@ -52,7 +52,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="take_photo">Take a photo of the map</string>
-    <string name="share_photo">Share a photo of the map</string>
+    <string name="share_map_photo">Share a photo of the map</string>
     <string name="change_map_type">Change map type</string>
     <string name="choose_option">Choose an option:&#160;</string>
     <string name="normal">Normal</string>
@@ -120,7 +120,7 @@
 
     <string name="no_file_found">No file found</string>
     <string name="delete_file">Delete</string>
-    <string name="deleted_successfully">File deleted successfully</string>
+    <string name="file_deleted_successfully">File deleted successfully</string>
     <string name="data">Data</string>
     <string name="photos">Photos</string>
     <string name="image_display">Image Display</string>
@@ -128,4 +128,19 @@
 
     <string name="imageview_description">Image Thumbnail</string>
     <string name="opengl_not_supported">OpenGL ES 2.0 not supported</string>
+    <string name="fit">Fit</string>
+    <string name="interpolate">Interpolate</string>
+    <string name="refinement">Refinement</string>
+    <string name="boundary_1">Boundary 1</string>
+    <string name="boundary_2">Boundary 2</string>
+
+    <string name="share_photo">Share</string>
+    <string name="photo_email_subject">Points Captor - Photo</string>
+    <string name="photo_email_body">The photo is attached to the email.</string>
+    <string name="delete_photo">Delete</string>
+    <string name="photo_deleted_successfully">Photo deleted successfully</string>
+    <string name="photo">Photo</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="file">File</string>
+    <string name="nav_drawer_item">Item</string>
 </resources>

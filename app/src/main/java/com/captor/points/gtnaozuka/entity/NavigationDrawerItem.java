@@ -2,10 +2,12 @@ package com.captor.points.gtnaozuka.entity;
 
 public class NavigationDrawerItem {
 
+    private int icon;
     private String title;
 
-    public NavigationDrawerItem(String title) {
+    public NavigationDrawerItem(String title, int icon) {
         this.title = title;
+        this.icon = icon;
     }
 
     public String getTitle() {
@@ -14,5 +16,13 @@ public class NavigationDrawerItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 }

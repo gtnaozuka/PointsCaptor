@@ -25,7 +25,7 @@ public class FullScreenPhotoAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return FullScreenPhotoFragment.newInstance(FileOperations.FILES_PATH + File.separator + this.photos[position]);
+        return FullScreenPhotoFragment.newInstance(FileOperations.PHOTOS_PATH + File.separator + this.photos[position]);
     }
 
     /*@Override

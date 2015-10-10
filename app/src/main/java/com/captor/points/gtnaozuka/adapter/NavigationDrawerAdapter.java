@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.captor.points.gtnaozuka.entity.NavigationDrawerItem;
@@ -32,6 +33,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         NavigationDrawerItem current = data.get(position);
+        holder.icon.setImageResource(current.getIcon());
         holder.title.setText(current.getTitle());
     }
 
@@ -42,10 +44,12 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView icon;
         private TextView title;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            this.icon = (ImageView) itemView.findViewById(R.id.icon);
             this.title = (TextView) itemView.findViewById(R.id.title);
         }
     }

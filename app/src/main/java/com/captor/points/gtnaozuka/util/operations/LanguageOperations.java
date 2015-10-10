@@ -17,4 +17,10 @@ public class LanguageOperations {
         config.locale = locale;
         res.updateConfiguration(config, dm);
     }
+
+    public static Locale getCurrentLocale(Context context) {
+        Resources res = context.getResources();
+        Configuration config = res.getConfiguration();
+        return config.locale;
+    }
 }

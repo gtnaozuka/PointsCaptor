@@ -8,6 +8,7 @@
     <color name="color_primary_dark">#1B5E20</color>
     <color name="color_primary">#81C784</color>
     <color name="tabs_color">#C8E6C9</color>
+    <color name="background_color">#fff5f5f5</color>
     <color name="color_accent">#FF9800</color>
     <color name="text_color">#000000</color>
 
